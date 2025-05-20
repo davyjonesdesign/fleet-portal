@@ -1,0 +1,65 @@
+.w-icon-wrapper:has(.w-k-i-error) {
+    background: var(--kendo-color-info-error);
+}
+
+.w-icon-wrapper:has(.w-k-i-caution) {
+    background: var(--kendo-color-caution-subtle);
+}
+
+.w-icon-wrapper:has(.w-k-i-info) {
+    background: var(--kendo-color-info-subtle);
+}
+
+.w-icon-wrapper:has(.w-k-i-success) {
+    background: var(--kendo-color-success-subtle);
+}
+
+small {
+    font-size: 12px;
+}
+
+.k-calendar-thead .k-calendar-tr, .k-calendar-tbody .k-calendar-tr  {
+    width: 100%;
+    display: flex;
+}
+
+.k-calendar-thead .k-calendar-th {
+    width: 100%;
+    flex-direction: row;
+}
+.k-calendar-tbody .k-calendar-th {
+    display: flex;
+}
+.k-calendar-tbody .k-calendar-tr .k-calendar-td {
+    display: flex;
+    justify-content: center;
+}
+
+.k-input-suffix {
+    width: 50px;
+    justify-content: center;
+}
+
+/* custom icons */
+.w-icon-search {
+    font-size: 30px !important;
+}
+
+.k-icon-button:hover .w-icon-search {
+    color: var(--kendo-color-on-app-surface) !important;
+}
+
+/* search */
+.w-icon-search:before {
+    content: '\e046'; /* Adds a glyph using the Unicode character number */
+}
+
+/* chevron down */
+
+.w-icon-chevronDown:before {
+    content: '\e03c'; /* Adds a glyph using the Unicode character number */
+}
+
+.w-icon-arrowLeft:before {
+    content: '\e040'; /* Adds a glyph using the Unicode character number */
+}

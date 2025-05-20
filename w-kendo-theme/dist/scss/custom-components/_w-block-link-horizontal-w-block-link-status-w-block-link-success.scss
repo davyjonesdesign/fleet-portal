@@ -1,0 +1,23 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status.w-block-link-success .w-icon-wrapper{
+    background-color: $tb-figma-status-success-2;
+            background-image: none;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status.w-block-link-success .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-status-success;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status.w-block-link-success .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e098";
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status.w-block-link-success:hover .w-icon-wrapper{
+    background-color: initial;
+            background-image: none;
+        
+}

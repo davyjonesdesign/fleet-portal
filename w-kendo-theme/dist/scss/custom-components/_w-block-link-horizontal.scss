@@ -1,0 +1,154 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-card.w-block-link-horizontal.k-card-horizontal{
+                    @extend %tb-effects-fig-effect-1;
+          min-width: 300px;
+            cursor: pointer;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .w-icon-wrapper{
+    display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-icon.k-font-icon.k-i-star.k-button-icon{
+    font-family: DesignIconsFont_1;
+            color: $tb-figma-primary;
+            font-size: 30px;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .w-icon-wrapper .k-icon.k-font-icon.k-i-star.k-button-icon::before{
+    content: "\e05e";
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-icon.k-font-icon{
+    font-family: des;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-icon.k-font-icon.k-i-star{
+    font-family: DesignIconsFont_1;
+            font-size: 30px;
+            color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e08a";
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-icon.k-font-icon.k-i-gear{
+    font-family: DesignIconsFont_1;
+            font-size: 20px;
+            color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .w-trailing-icon-wrapper .k-icon.k-font-icon.k-i-gear::before{
+    content: "\e039";
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .w-trailing-icon-wrapper{
+    display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding-right: 5px;
+            padding-left: 5px;
+            align-items: center;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-card-header{
+    padding-left: 5px;
+            width: fit-content;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:hover{
+                    @extend %tb-effects-fig-effect-4;
+          background-color: $tb-figma-primary-light-2;
+            background-image: none;
+            border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:hover .k-icon.k-font-icon.k-i-gear{
+    color: $tb-figma-primary-dark;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:hover .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-primary-dark;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:hover .k-card-subtitle{
+    color: $tb-figma-neutral-dark-2;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:focus:focus-within:focus-visible:active:visited:target,.k-card.w-block-link-horizontal.k-card-horizontal:focus:focus-within:focus-visible:active:visited:target,.k-card.w-block-link-horizontal.k-card-horizontal:focus:focus-within:focus-visible:active:visited:target,.k-card.w-block-link-horizontal.k-card-horizontal:focus:focus-within:focus-visible:active:visited:target{
+                    @extend %tb-effects-tb-internal-none-effects;
+          border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-card-title{
+    width: auto;
+            text-align: left;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal .k-card-subtitle{
+    width: auto;
+            text-align: left;
+        
+}
+    .k-card.w-block-link-horizontal.k-card-horizontal:active{
+                    @extend %tb-effects-tb-internal-none-effects;
+          background-color: $tb-figma-primary-light-3;
+            background-image: none;
+            border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .k-card-header{
+    display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            align-self: stretch;
+            overflow-x: hidden;
+            flex-shrink: 1;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .k-card-subtitle{
+    overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: unset;
+            min-width: 0;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .k-card-title{
+    width: unset;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .w-icon-wrapper{
+    min-width: 50px;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .k-icon.k-font-icon.k-i-star{
+    font-size: 30px;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal .k-icon.k-font-icon.w-i-custom{
+    font-family: DesignIconsFont_1;
+        
+}

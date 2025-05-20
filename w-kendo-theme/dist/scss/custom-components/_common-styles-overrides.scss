@@ -1,0 +1,309 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .hello{
+                    @extend %tb-typography-archived-h1;
+          background-color: pink;
+            background-image: none;
+            color: green;
+        
+}
+    .hey{
+                    @extend %tb-typography-archived-h2;
+      
+}
+    .k-card.w-block-link-vertical.k-card-vertical .k-icon.k-font-icon.k-i-star{
+    font-family: DesignIconsFont_1;
+            font-size: 50px;
+            color: $tb-figma-primary-dark;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e08a";
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical{
+                    @extend %tb-effects-fig-effect-1;
+          min-width: 160px;
+            height: unset;
+            justify-content: space-around;
+            min-height: 140px;
+            cursor: pointer;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .k-card-subtitle{
+                    @extend %tb-typography-fig-p-2;
+          text-align: left;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .w-icon-wrapper{
+    height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $tb-figma-primary-light-3;
+            background-image: none;
+            border-bottom-width: 1px;
+            border-bottom-color: $tb-figma-neutral-light-2;
+            border-bottom-style: solid;
+            min-height: 80px;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .k-card-header{
+    padding-bottom: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+            margin-right: 0px;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .k-notification-content{
+                    @extend %tb-typography-fig-h6-heavy;
+          text-align: left;
+            margin-top: 1px;
+            color: $tb-figma-neutral-dark-2;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical:hover{
+                    @extend %tb-effects-fig-effect-4;
+          background-color: $tb-figma-primary-light-2;
+            background-image: none;
+            border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical:hover .w-icon-wrapper{
+    width: 100%;
+            background-color: $tb-figma-primary-light-3;
+            background-image: none;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical:hover .k-card-subtitle{
+    color: $tb-figma-neutral-dark;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical:active{
+                    @extend %tb-effects-tb-internal-none-effects;
+          background-color: $tb-figma-primary-light-3;
+            background-image: none;
+            border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-card.w-block-link-vertical.k-card-vertical .k-notification.inline-plain.k-notification-warning{
+                    @extend %tb-typography-fig-h6-heavy;
+      
+}
+    .w-input-odometer.k-input.k-input-md.k-rounded-md.k-input-solid.k-disabled,.w-input-odometer.k-input.k-input-md.k-rounded-md.k-input-solid.k-state-disabled,.w-input-odometer.k-input.k-input-md.k-rounded-md.k-input-solid:disabled{
+                    @extend %tb-typography-fig-h4-medium;
+          color: $tb-figma-neutral-dark;
+            height: 70px;
+            text-align: center;
+            width: unset;
+            max-width: 60px;
+            min-width: 30px;
+            flex-direction: row;
+            display: inline-block;
+        
+}
+    .k-window.k-dialog.w-dialog-status{
+    min-width: 280px;
+            max-width: 580px;
+            width: 1px;
+            background-color: $tb-figma-background-alt;
+            background-image: none;
+            border-bottom-color: $tb-figma-primary;
+            border-left-color: $tb-figma-primary;
+            border-right-color: $tb-figma-primary;
+            border-top-color: $tb-figma-primary;
+        
+}
+    .k-window.k-dialog.w-dialog-status .w-h4-heavy{
+    margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        
+}
+    .k-window.k-dialog.w-dialog-status .w-h6{
+    margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-icon.k-font-icon.k-i-star.w-dialog-icon{
+    font-family: DesignIconsFont_1;
+            font-size: 40px;
+            color: $tb-figma-status-info;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-window-titlebar.k-dialog-titlebar .k-icon.k-font-icon.k-i-star.w-dialog-icon::before{
+    content: "\e09e";
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-window-titlebar.k-dialog-titlebar{
+    justify-content: center;
+            height: 40px;
+            align-self: stretch;
+            width: auto;
+            align-items: center;
+            border-bottom-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-top-style: none;
+            background-color: $tb-figma-status-info-2;
+            background-image: none;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-window-titlebar-actions.k-dialog-titlebar-actions{
+    height: unset;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            right: 20px;
+        
+}
+    .k-window .k-window-titlebar .k-window-titlebar-actions .k-window-titlebar-action.k-button.k-button-md.k-button-flat.k-button-flat-base.k-rounded-md.k-icon-button .k-icon.k-font-icon.k-i-x.k-button-icon{
+    color: $tb-figma-primary-dark;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-window-content.k-dialog-content{
+    padding-top: 20px;
+            display: flex;
+            row-gap: 15px;
+            flex-direction: column;
+            background-color: initial;
+            background-image: none;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-actions.k-actinos-vertical.k-window-actions.k-dialog-actions.k-actions-stretched{
+    padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            row-gap: 10px;
+            column-gap: 10px;
+            border-bottom-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-top-style: none;
+            flex-direction: row;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-button.k-button-lg.k-button-outline.k-button-solid-primary.k-rounded-full{
+    width: unset;
+            padding-right: 30px;
+            padding-left: 30px;
+        
+}
+    .k-window.k-dialog.w-dialog-status .k-button.k-button-lg.k-button-outline.k-button-outline-primary.k-rounded-full{
+    padding-right: 30px;
+            padding-left: 30px;
+        
+}
+    .k-dialog-wrapper .k-window.k-dialog .k-window-content.k-dialog-content{
+    padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-left: 0px;
+        
+}
+    .k-dialog-wrapper.undefined .k-actions.k-actinos-vertical.k-window-actions.k-dialog-actions.k-actions-stretched{
+    background-color: initial;
+            background-image: none;
+            min-width: 280px;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-actions.k-actinos-vertical.k-window-actions.k-dialog-actions.k-actions-stretched{
+    flex-direction: row;
+            border-bottom-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-top-style: none;
+            padding-top: $tb-figma-spacing-10;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .w-h4-heavy{
+                    @extend %tb-typography-fig-h4-heavy;
+          margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            color: $tb-figma-neutral-dark-2;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .w-h6{
+    margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-window-content.k-dialog-content{
+    padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 15px;
+            background-color: initial;
+            background-image: none;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            padding-bottom: 10px;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-window-titlebar.k-dialog-titlebar{
+    background-color: $tb-info-1;
+            background-image: none;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            height: 80px;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-icon.k-font-icon.k-i-star.w-dialog-icon{
+    font-family: DesignIconsFont_1;
+            font-size: 40px;
+            text-transform: capitalize;
+            color: $tb-figma-status-info;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-window.k-dialog .k-window-titlebar.k-dialog-titlebar .k-icon.k-font-icon.k-i-star.w-dialog-icon::before{
+    content: "\e09e";
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-button.k-button-md.k-button-flat.k-button-flat-base.k-rounded-md.k-icon-button.k-window-titlebar-action.k-dialog-titlebar-action.w-dialog-status-titlebar-action{
+    color: $tb-figma-primary-dark;
+        
+}
+    .k-dialog-wrapper.undefined.w-dialog-status .k-window-titlebar-actions.k-dialog-titlebar-actions{
+    position: absolute;
+            height: unset;
+            z-index: 100;
+            top: 20px;
+            right: 20px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical .k-notification-content{
+    overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status.w-block-link-featured .w-icon-wrapper{
+    background-color: $tb-figma-primary-light-3;
+            background-image: none;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status.w-block-link-featured .k-card-subtitle{
+    text-align: center;
+        
+}

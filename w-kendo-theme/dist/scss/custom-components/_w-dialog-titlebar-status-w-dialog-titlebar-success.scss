@@ -1,0 +1,13 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-dialog-titlebar-status.w-dialog-titlebar-success .k-icon.k-font-icon.k-i-star::before{
+    content: "\e098";
+        
+}
+    .w-dialog-titlebar-status.w-dialog-titlebar-success .k-icon.k-font-icon.k-i-star{
+    color: $tb-success-2;
+        
+}

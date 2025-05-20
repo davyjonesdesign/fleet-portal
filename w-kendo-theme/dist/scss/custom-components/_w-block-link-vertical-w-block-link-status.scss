@@ -1,0 +1,45 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .w-icon-wrapper{
+    height: 80px;
+            align-items: center;
+            background-color: $tb-figma-status-info-2;
+            background-image: none;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-neutral-dark-2;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status{
+    row-gap: 10px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .k-card-title{
+    text-align: left;
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .k-card-subtitle{
+    text-align: left;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .k-card-header .k-card-title .k-icon.k-font-icon.k-i-star.w-block-link-status-icon::before{
+    content: "\e09e";
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status .k-icon.k-font-icon.k-i-star.w-block-link-status-icon{
+    color: $tb-figma-status-info;
+            font-size: 15px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-status:hover .w-icon-wrapper{
+    background-color: initial;
+            background-image: none;
+        
+}

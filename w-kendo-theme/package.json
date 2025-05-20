@@ -1,0 +1,9 @@
+{
+  "name": "W-Kendo-Theme",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@progress/kendo-font-icons": "4.0.0",
+    "@progress/kendo-theme-default": "10.2.0"
+  }
+}

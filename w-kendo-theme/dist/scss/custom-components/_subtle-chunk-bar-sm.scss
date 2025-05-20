@@ -1,0 +1,32 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-subtle-chunk-bar-sm.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal{
+    background-color: initial;
+            background-image: none;
+        
+}
+    .w-subtle-chunk-bar-sm.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunks.k-reset{
+    column-gap: 3px;
+        
+}
+    .w-subtle-chunk-bar-sm.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk.k-first.k-selected{
+    min-width: 5px;
+            background-color: $tb-figma-status-error;
+            background-image: none;
+        
+}
+    .w-subtle-chunk-bar-sm.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk.k-selected{
+    min-width: 5px;
+            background-color: $tb-figma-primary-light;
+            background-image: none;
+        
+}
+    .w-subtle-chunk-bar-sm.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk{
+    min-width: 5px;
+            background-color: $tb-figma-status-info-2;
+            background-image: none;
+        
+}

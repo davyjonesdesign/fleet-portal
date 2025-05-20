@@ -1,0 +1,716 @@
+// Compatible with @progress/kendo-theme-default v.10.2.0
+
+$tb-kendo-spacing-2: 0.5rem;
+$tb-kendo-spacing-1: 0.25rem;
+$tb-figma-spacing-20: 20px;
+$tb-figma-spacing-5: 5px;
+$tb-kendo-calendar-cell-size: 40px;
+$tb-figma-border-radius-full: 100px;
+$tb-kendo-card-header-border-width: 1px;
+$tb-kendo-checkbox-border-width: 2px;
+$tb-figma-height-20: 20px;
+$tb-figma-spacing-10: 10px;
+$tb-kendo-input-border-width: 1px;
+$tb-kendo-menu-popup-item-padding-x: 10px;
+$tb-kendo-menu-popup-sm-item-icon-margin-start: 10px;
+$tb-kendo-notification-icon-spacing: 0.25rem;
+$tb-kendo-popup-border-width: 1px;
+$tb-kendo-radio-border-width: 2px;
+$tb-kendo-stepper-indicator-focus-offset: 3px;
+$tb-kendo-switch-track-border-width: 2px;
+$tb-kendo-switch-thumb-border-width: 2px;
+$tb-kendo-tabstrip-border-width: 0px;
+$tb-kendo-tabstrip-item-border-width: 0px;
+$tb-figma-spacing-40: 40px;
+$tb-kendo-upload-icon-spacing: 0.25rem;
+$tb-figma-border-radius-20: 20px;
+$tb-figma-spacing-25: 25px;
+$tb-kendo-slider-track-thickness: 4px;
+$tb-figma-spacing-15: 15px;
+$tb-figma-spacing-60: 60px;
+$tb-figma-border-radius-40: 0px;
+$tb-figma-spacing-30: 30px;
+$tb-figma-height-25: 25px;
+$tb-figma-border-radius-10: 10px;
+$tb-figma-height-50: 50px;
+$tb-figma-height-30: 30px;
+$tb-figma-height-15: 15px;
+$tb-figma-spacing-80: 80px;
+$tb-figma-height-10: 10px;
+$tb-kendo-toolbar-flat-border-width: 1px;
+$tb-figma-border-radius-5: 5px;
+$tb-figma-spacing-35: 35px;
+$tb-figma-spacing-50: 50px;
+$tb-kendo-button-padding-x: $tb-figma-spacing-20;
+$tb-kendo-button-padding-y: $tb-figma-spacing-5;
+$tb-kendo-calendar-footer-padding-x: $tb-figma-spacing-5;
+$tb-kendo-calendar-cell-border-radius: $tb-figma-border-radius-full;
+$tb-kendo-padding-md-x: $tb-figma-height-20;
+$tb-kendo-drawer-item-padding-y: $tb-kendo-padding-md-x;
+$tb-kendo-dropdowntree-popup-padding-x: $tb-figma-spacing-10;
+$tb-kendo-dropdowntree-popup-padding-y: $tb-figma-spacing-10;
+$tb-kendo-filter-padding-x: $tb-kendo-padding-md-x;
+$tb-kendo-padding-md-y: $tb-figma-spacing-20;
+$tb-kendo-filter-padding-y: $tb-kendo-padding-md-y;
+$tb-kendo-icon-size: $tb-figma-height-20;
+$tb-kendo-input-padding-x: $tb-kendo-spacing-2;
+$tb-kendo-input-md-padding-x: $tb-kendo-input-padding-x;
+$tb-kendo-input-padding-y: $tb-kendo-spacing-1;
+$tb-kendo-input-md-padding-y: $tb-kendo-input-padding-y;
+$tb-kendo-popover-header-border-width: $tb-kendo-card-header-border-width;
+$tb-kendo-padding-sm-x: $tb-figma-spacing-10;
+$tb-kendo-rating-container-margin-x: $tb-kendo-padding-sm-x;
+$tb-kendo-rating-item-padding-x: $tb-kendo-padding-sm-x;
+$tb-kendo-rating-item-padding-y: $tb-kendo-padding-md-y;
+$tb-kendo-rating-label-margin-x: $tb-kendo-padding-md-x;
+$tb-kendo-rating-label-margin-y: $tb-kendo-padding-md-y;
+$tb-kendo-tooltip-padding-y: $tb-kendo-padding-md-y;
+$tb-kendo-tooltip-padding-x: $tb-kendo-padding-md-x;
+$tb-kendo-code-padding-x: $tb-figma-spacing-20;
+$tb-kendo-code-padding-y: $tb-figma-spacing-10;
+$tb-kendo-pre-padding-x: $tb-figma-spacing-40;
+$tb-kendo-pre-padding-y: $tb-figma-spacing-20;
+$tb-kendo-padding-y: $tb-figma-spacing-20;
+$tb-kendo-padding-lg-x: $tb-figma-spacing-40;
+$tb-figma-neutral-dark-2: #1c2b3b;
+$tb-figma-background: #ffffff;
+$tb-kendo-color-border: rgba(0,0,0,0);
+$tb-figma-primary: #1d57a6;
+$tb-figma-background-alt: #f8f8f9;
+$tb-figma-primary-dark: #193967;
+$tb-figma-primary-light-2: #e8f0fc;
+$tb-figma-primary-light: #82b4fb;
+$tb-figma-neutral: #727578;
+$tb-figma-status-error: #ca0909;
+$tb-figma-neutral-light-2: #e8ebed;
+$tb-kendo-dropzone-icon-text: #a2a5a8a8;
+$tb-figma-status-success: #1f8554;
+$tb-figma-neutral-dark: #3b434d;
+$tb-figma-status-success-2: #e2f6ed;
+$tb-info-1: #E8EBED;
+$tb-figma-grid-selected-hover: #b4d2fd;
+$tb-figma-status-caution: #d87810;
+$tb-kendo-loader-secondary-bg: #656565;
+$tb-primary-2: #1D57A6;
+$tb-figma-status-caution-2: #f9eee6;
+$tb-figma-grid-alternating-row-1: rgba(114, 117, 120, 0.06);
+$tb-figma-primary-light-3: #f7fbff;
+$tb-success-1: #6DDCA6;
+$tb-error-1: #FF9999;
+$tb-figma-grid-selected: #cde1fd;
+$tb-info-2: #3B434D;
+$tb-figma-grid-selected-1: rgba(130, 180, 251, 0.55);
+$tb-figma-neutral-light: #a2a5a8;
+$tb-error-2: #430000;
+$tb-primary-1: #E8F0FC;
+$tb-figma-status-error-2: #f7e7e7;
+$tb-figma-grid-hover: rgba(130, 180, 251, 0.35);
+$tb-figma-grid-alternating-row: rgba(114, 117, 120, 0.08);
+$tb-success-2: #064233;
+$tb-notification-text: #0C1622;
+$tb-figma-status-warning: #d87810;
+$tb-warning-2: #412D08;
+$tb-figma-status-warning-2: #f9eee6;
+$tb-warning-1: #F5B254;
+$tb-kendo-color-primary-subtle-hover: #ffc6af;
+$tb-kendo-color-primary-subtle-active: #ffae8d;
+$tb-kendo-color-primary-emphasis: #ff8553;
+$tb-kendo-color-primary-on-subtle: #592009;
+$tb-kendo-color-secondary-subtle: #e3eef4;
+$tb-kendo-color-secondary-subtle-hover: #cee1ec;
+$tb-kendo-color-secondary-subtle-active: #b9d4e4;
+$tb-kendo-color-secondary: #73a9c9;
+$tb-kendo-color-secondary-hover: #6ea2c1;
+$tb-kendo-color-secondary-active: #6595b1;
+$tb-kendo-color-secondary-emphasis: #96bfd7;
+$tb-kendo-color-secondary-on-subtle: #283b46;
+$tb-kendo-color-secondary-on-surface: #567f97;
+$tb-kendo-color-info-subtle-hover: #c6e9f3;
+$tb-kendo-color-info-subtle-active: #ade0ef;
+$tb-kendo-color-info-hover: #57b8d5;
+$tb-kendo-color-info-active: #50a9c3;
+$tb-kendo-color-info-emphasis: #84d0e6;
+$tb-kendo-color-info-on-subtle: #20434e;
+$tb-kendo-color-info-on-surface: #4490a7;
+$tb-kendo-color-success-subtle-hover: #c6e6c6;
+$tb-kendo-color-success-subtle-active: #aedcae;
+$tb-kendo-color-success-hover: #58b158;
+$tb-kendo-color-success-active: #51a251;
+$tb-kendo-color-success-emphasis: #85ca85;
+$tb-kendo-color-success-on-subtle: #204020;
+$tb-kendo-color-on-success: white;
+$tb-kendo-color-success-on-surface: #458a45;
+$tb-kendo-color-warning-subtle-hover: #ffe7c6;
+$tb-kendo-color-warning-subtle-active: #ffddad;
+$tb-kendo-color-warning-hover: #f5b457;
+$tb-kendo-color-warning-active: #e0a550;
+$tb-kendo-color-warning-emphasis: #ffcc84;
+$tb-kendo-color-warning-on-subtle: #594120;
+$tb-kendo-color-on-warning: black;
+$tb-kendo-color-warning-on-surface: #bf8c44;
+$tb-kendo-color-error-subtle-hover: #f5bfab;
+$tb-kendo-color-error-subtle-active: #f1a387;
+$tb-kendo-color-error-hover: #da440d;
+$tb-kendo-color-error-active: #c83e0c;
+$tb-kendo-color-error-emphasis: #ea754a;
+$tb-kendo-color-error-on-subtle: #4f1905;
+$tb-kendo-color-on-error: white;
+$tb-kendo-color-error-on-surface: #aa350b;
+$tb-kendo-color-series-a: #ff7943;
+$tb-kendo-color-series-a-bold: #bf5b32;
+$tb-kendo-color-series-a-bolder: #803d22;
+$tb-kendo-color-series-a-subtle: #ff9b72;
+$tb-kendo-color-series-a-subtler: #ffbca1;
+$tb-kendo-color-series-b: #e84d0e;
+$tb-kendo-color-series-b-bold: #ae3a0b;
+$tb-kendo-color-series-b-bolder: #742707;
+$tb-kendo-color-series-b-subtle: #ee7a4a;
+$tb-kendo-color-series-b-subtler: #f4a687;
+$tb-kendo-color-series-c: #40a9e3;
+$tb-kendo-color-series-c-bold: #307faa;
+$tb-kendo-color-series-c-bolder: #205572;
+$tb-kendo-color-series-c-subtle: #70bfea;
+$tb-kendo-color-series-c-subtler: #a0d4f1;
+$tb-kendo-color-series-d: #016a98;
+$tb-kendo-color-series-d-bold: #015072;
+$tb-kendo-color-series-d-bolder: #01354c;
+$tb-kendo-color-series-d-subtle: #418fb2;
+$tb-kendo-color-series-d-subtler: #80b5cc;
+$tb-kendo-color-series-e: #7a8c95;
+$tb-kendo-color-series-e-bold: #5c6970;
+$tb-kendo-color-series-e-bolder: #3d464b;
+$tb-kendo-color-series-e-subtle: #9ba9b0;
+$tb-kendo-color-series-e-subtler: #bdc6ca;
+$tb-kendo-color-series-f: #355261;
+$tb-kendo-color-series-f-bold: #283e49;
+$tb-kendo-color-series-f-bolder: #1b2931;
+$tb-kendo-color-series-f-subtle: #687d89;
+$tb-series-f-subtler: #9aa9b0;
+$tb-kendo-color-on-app-surface: $tb-figma-neutral-dark-2;
+$tb-kendo-color-surface-alt: $tb-figma-background;
+$tb-kendo-color-primary: $tb-figma-primary;
+$tb-kendo-color-surface: $tb-figma-background-alt;
+$tb-kendo-color-primary-hover: $tb-figma-primary-dark;
+$tb-kendo-button-bg: $tb-figma-background;
+$tb-kendo-button-text: $tb-figma-primary;
+$tb-kendo-button-border: $tb-figma-primary;
+$tb-kendo-button-hover-bg: $tb-figma-primary-light-2;
+$tb-kendo-color-base-active: $tb-figma-primary-light;
+$tb-kendo-button-selected-bg: $tb-figma-primary-light;
+$tb-kendo-button-selected-text: $tb-figma-neutral-dark-2;
+$tb-kendo-button-selected-border: $tb-figma-neutral-dark-2;
+$tb-kendo-color-subtle: $tb-figma-neutral;
+$tb-kendo-color-base-hover: $tb-figma-primary-light-2;
+$tb-kendo-calendar-cell-hover-bg: $tb-kendo-color-base-hover;
+$tb-kendo-calendar-cell-selected-bg: $tb-figma-primary;
+$tb-kendo-color-on-primary: $tb-figma-background;
+$tb-kendo-calendar-cell-selected-text: $tb-kendo-color-on-primary;
+$tb-kendo-calendar-cell-selected-hover-bg: $tb-figma-primary-dark;
+$tb-kendo-card-header-border: $tb-kendo-color-border;
+$tb-kendo-checkbox-indeterminate-bg: $tb-figma-primary;
+$tb-kendo-checkbox-indeterminate-text: $tb-figma-background;
+$tb-kendo-color-error: $tb-figma-status-error;
+$tb-kendo-color-base-subtle: $tb-figma-background-alt;
+$tb-kendo-chip-solid-bg: $tb-figma-primary;
+$tb-kendo-chip-solid-text: $tb-figma-background;
+$tb-kendo-chip-solid-hover-bg: $tb-figma-primary-dark;
+$tb-kendo-chip-solid-selected-bg: $tb-figma-neutral-dark-2;
+$tb-kendo-chip-outline-text: $tb-figma-primary;
+$tb-kendo-chip-outline-hover-bg: $tb-figma-primary-light-2;
+$tb-kendo-chip-outline-hover-text: $tb-figma-primary-dark;
+$tb-kendo-chip-outline-selected-bg: $tb-figma-primary-light;
+$tb-kendo-chip-outline-selected-text: $tb-figma-neutral-dark-2;
+$tb-kendo-component-header-bg: $tb-kendo-color-surface;
+$tb-kendo-dialog-titlebar-bg: $tb-kendo-component-header-bg;
+$tb-kendo-component-header-text: $tb-kendo-color-on-app-surface;
+$tb-kendo-dialog-titlebar-text: $tb-kendo-component-header-text;
+$tb-kendo-dock-manager-pane-header-bg: $tb-kendo-component-header-bg;
+$tb-kendo-component-bg: $tb-kendo-color-surface-alt;
+$tb-kendo-drawer-bg: $tb-kendo-component-bg;
+$tb-kendo-component-text: $tb-kendo-color-on-app-surface;
+$tb-kendo-drawer-text: $tb-kendo-component-text;
+$tb-kendo-drawer-border: $tb-figma-neutral-light-2;
+$tb-kendo-dropzone-icon-hover-text: $tb-figma-primary;
+$tb-kendo-color-primary-subtle: $tb-figma-primary-light-2;
+$tb-kendo-expander-text: $tb-kendo-component-text;
+$tb-kendo-expander-bg: $tb-kendo-component-bg;
+$tb-kendo-component-border: $tb-kendo-color-border;
+$tb-kendo-expander-border: $tb-kendo-component-border;
+$tb-kendo-fab-item-text: $tb-kendo-component-text;
+$tb-kendo-fab-item-bg: $tb-kendo-component-bg;
+$tb-kendo-fab-item-border: $tb-kendo-component-border;
+$tb-kendo-form-legend-border-color: $tb-kendo-component-border;
+$tb-kendo-input-bg: $tb-kendo-component-bg;
+$tb-kendo-input-text: $tb-kendo-component-text;
+$tb-kendo-input-border: $tb-kendo-component-border;
+$tb-kendo-color-border-alt: $tb-figma-neutral;
+$tb-kendo-invalid-border: $tb-kendo-color-error;
+$tb-kendo-input-invalid-border: $tb-kendo-invalid-border;
+$tb-kendo-list-bg: $tb-kendo-component-bg;
+$tb-kendo-list-text: $tb-kendo-component-text;
+$tb-kendo-list-border: $tb-kendo-component-border;
+$tb-kendo-list-item-selected-bg: $tb-kendo-color-primary;
+$tb-kendo-list-item-selected-text: $tb-kendo-color-on-primary;
+$tb-kendo-listbox-text: $tb-kendo-component-text;
+$tb-kendo-listbox-bg: $tb-kendo-component-bg;
+$tb-kendo-listbox-border: $tb-kendo-component-border;
+$tb-kendo-listview-text: $tb-kendo-component-text;
+$tb-kendo-listview-bg: $tb-kendo-component-bg;
+$tb-kendo-listview-border: $tb-kendo-component-border;
+$tb-kendo-loader-container-panel-border-color: $tb-kendo-component-border;
+$tb-kendo-loading-bg: $tb-kendo-component-bg;
+$tb-kendo-notification-bg: $tb-kendo-component-bg;
+$tb-kendo-notification-text: $tb-kendo-component-text;
+$tb-kendo-notification-border: $tb-kendo-component-border;
+$tb-kendo-pager-bg: $tb-kendo-component-header-bg;
+$tb-kendo-pager-text: $tb-kendo-component-header-text;
+$tb-kendo-pager-border: $tb-kendo-component-border;
+$tb-kendo-panelbar-bg: $tb-kendo-component-bg;
+$tb-kendo-panelbar-text: $tb-kendo-component-text;
+$tb-kendo-panelbar-border: $tb-kendo-component-border;
+$tb-kendo-color-base: $tb-figma-background;
+$tb-kendo-popover-text: $tb-kendo-component-text;
+$tb-kendo-popover-bg: $tb-kendo-component-bg;
+$tb-kendo-popover-border: $tb-kendo-component-border;
+$tb-kendo-popup-bg: $tb-kendo-component-bg;
+$tb-kendo-popup-text: $tb-kendo-component-text;
+$tb-kendo-popup-border: $tb-kendo-component-border;
+$tb-kendo-progressbar-text: $tb-kendo-component-text;
+$tb-kendo-progressbar-border: $tb-kendo-component-border;
+$tb-kendo-color-primary-active: $tb-figma-neutral-dark-2;
+$tb-kendo-prompt-text: $tb-kendo-component-text;
+$tb-kendo-prompt-bg: $tb-kendo-component-bg;
+$tb-kendo-prompt-border: $tb-kendo-component-border;
+$tb-kendo-prompt-header-text: $tb-kendo-component-header-text;
+$tb-kendo-prompt-header-bg: $tb-kendo-component-bg;
+$tb-kendo-component-header-border: $tb-kendo-color-border;
+$tb-kendo-prompt-header-border: $tb-kendo-component-header-border;
+$tb-kendo-prompt-content-text: $tb-kendo-component-header-text;
+$tb-kendo-prompt-content-bg: $tb-kendo-component-header-bg;
+$tb-kendo-prompt-content-border: $tb-kendo-component-header-border;
+$tb-kendo-prompt-suggestion-text: $tb-kendo-component-text;
+$tb-kendo-color-app-surface: $tb-figma-background-alt;
+$tb-kendo-prompt-suggestion-border: $tb-kendo-component-border;
+$tb-kendo-radio-border: $tb-figma-primary;
+$tb-kendo-rating-icon-text: $tb-kendo-component-text;
+$tb-kendo-scheduler-bg: $tb-kendo-component-bg;
+$tb-kendo-scheduler-text: $tb-kendo-component-text;
+$tb-kendo-scheduler-border: $tb-kendo-component-border;
+$tb-kendo-scrollview-text: $tb-kendo-component-text;
+$tb-kendo-scrollview-bg: $tb-kendo-component-bg;
+$tb-kendo-scrollview-border: $tb-kendo-component-border;
+$tb-kendo-color-base-emphasis: $tb-figma-background-alt;
+$tb-kendo-splitter-bg: $tb-kendo-component-bg;
+$tb-kendo-splitter-text: $tb-kendo-component-text;
+$tb-kendo-splitter-border: $tb-kendo-component-border;
+$tb-kendo-stepper-text: $tb-kendo-component-text;
+$tb-kendo-stepper-indicator-bg: $tb-kendo-component-bg;
+$tb-kendo-stepper-indicator-text: $tb-kendo-component-text;
+$tb-kendo-color-success: $tb-figma-status-success;
+$tb-kendo-color-on-base: $tb-figma-primary;
+$tb-kendo-switch-off-track-bg: $tb-kendo-component-bg;
+$tb-kendo-switch-off-track-text: $tb-kendo-component-text;
+$tb-kendo-switch-off-thumb-bg: $tb-figma-background;
+$tb-kendo-switch-on-thumb-border: $tb-figma-primary;
+$tb-kendo-table-bg: $tb-kendo-component-bg;
+$tb-kendo-table-text: $tb-kendo-component-text;
+$tb-kendo-table-border: $tb-kendo-component-border;
+$tb-kendo-table-header-bg: $tb-kendo-component-header-bg;
+$tb-kendo-table-header-text: $tb-kendo-component-header-text;
+$tb-kendo-table-header-border: $tb-kendo-component-header-border;
+$tb-kendo-tabstrip-text: $tb-kendo-component-text;
+$tb-kendo-tabstrip-border: $tb-kendo-component-border;
+$tb-kendo-tabstrip-item-text: $tb-kendo-color-primary;
+$tb-kendo-tabstrip-item-hover-text: $tb-kendo-color-primary-hover;
+$tb-kendo-tabstrip-item-selected-bg: $tb-kendo-component-bg;
+$tb-kendo-tabstrip-item-selected-text: $tb-kendo-component-text;
+$tb-kendo-tabstrip-item-selected-border: $tb-kendo-component-border;
+$tb-kendo-tabstrip-content-bg: $tb-kendo-component-bg;
+$tb-kendo-tabstrip-content-text: $tb-kendo-component-text;
+$tb-kendo-tabstrip-content-border: $tb-kendo-component-border;
+$tb-kendo-tabstrip-content-focus-border: $tb-kendo-component-text;
+$tb-kendo-tile-layout-hint-border: $tb-kendo-component-border;
+$tb-kendo-treeview-text: $tb-kendo-component-text;
+$tb-kendo-code-text: $tb-kendo-component-text;
+$tb-kendo-code-border: $tb-kendo-component-border;
+$tb-kendo-upload-text: $tb-kendo-component-text;
+$tb-kendo-upload-bg: $tb-kendo-component-bg;
+$tb-kendo-upload-border: $tb-kendo-component-border;
+$tb-kendo-upload-dropzone-text: $tb-kendo-component-header-text;
+$tb-kendo-upload-dropzone-bg: $tb-kendo-component-header-bg;
+$tb-figma-status-info: $tb-figma-neutral-dark;
+$tb-kendo-color-info: $tb-figma-status-info;
+$tb-kendo-upload-error-bg: $tb-kendo-color-error;
+$tb-kendo-window-bg: $tb-kendo-component-bg;
+$tb-kendo-window-text: $tb-kendo-component-text;
+$tb-kendo-window-border: $tb-kendo-component-border;
+$tb-kendo-window-titlebar-bg: $tb-kendo-component-header-bg;
+$tb-kendo-window-titlebar-text: $tb-kendo-component-header-text;
+$tb-figma-status-info-2: $tb-figma-neutral-light-2;
+$tb-kendo-menu-popup-item-expanded-text: $tb-kendo-list-item-selected-text;
+$tb-kendo-list-no-data-text: $tb-kendo-color-subtle;
+$tb-kendo-menu-popup-item-expanded-bg: $tb-kendo-list-item-selected-bg;
+$tb-button-outline-content: $tb-figma-primary;
+$tb-modal-close-bg-hover: $tb-figma-background;
+$tb-kendo-color-base-subtle-hover: $tb-figma-primary-light-2;
+$tb-kendo-color-base-subtle-active: $tb-figma-primary-light;
+$tb-kendo-color-base-on-subtle: $tb-figma-background;
+$tb-kendo-color-base-on-surface: $tb-figma-background;
+$tb-kendo-color-primary-on-surface: $tb-figma-primary;
+$tb-kendo-color-on-secondary: $tb-figma-background;
+$tb-kendo-color-on-tertiary: $tb-figma-background;
+$tb-kendo-color-info-subtle: $tb-figma-status-info-2;
+$tb-kendo-color-on-info: $tb-figma-background;
+$tb-kendo-color-success-subtle: $tb-figma-status-success-2;
+$tb-kendo-color-warning-subtle: $tb-figma-status-warning-2;
+$tb-kendo-color-warning: $tb-figma-status-warning;
+$tb-kendo-color-error-subtle: $tb-figma-status-error-2;
+
+
+    $tb-kendo-font-family: Inter;
+    $tb-kendo-font-size: 14px;
+    $tb-kendo-font-weight-normal: 400;
+    $tb-kendo-line-height: 1.45;
+    $enable-gradients: true;
+
+$tb-typography: (
+  kendo-default-typography: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 400,
+      line-height: 1.45,
+        ),
+  archived-h1: (
+      font-family: 'Inter',
+      font-size: 36px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  archived-p: (
+      font-family: 'Inter',
+      font-size: 12px,
+      font-weight: normal,
+      line-height: 15px,
+        ),
+  archived-h3: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h3-700: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h3-600: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h2: (
+      font-family: 'Inter',
+      font-size: 30px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h4-600: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h4-700: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h5-500: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: 500,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h6: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h5-600: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  figma-typography-h-6-600: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  archived-p-700: (
+      font-family: 'Inter',
+      font-size: 12px,
+      font-weight: bold,
+      line-height: 15px,
+        ),
+  archived-h5: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h6-700: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h6-500: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 500,
+      line-height: 145.00000476837158%,
+        ),
+  archived-h4: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h3: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h2-medium: (
+      font-family: 'Inter',
+      font-size: 30px,
+      font-weight: 500,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h1: (
+      font-family: 'Inter',
+      font-size: 36px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h6: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h1-heavy: (
+      font-family: 'Inter',
+      font-size: 36px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h3-heavy: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h4-medium: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h5: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h6-heavy: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h2: (
+      font-family: 'Inter',
+      font-size: 30px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h5-2: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h6-2: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h2-heavy: (
+      font-family: 'Inter',
+      font-size: 30px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h5-medium: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  fig-p-heavy: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h4: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-p-2: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h4-heavy: (
+      font-family: 'Inter',
+      font-size: 20px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  fig-p: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h6-medium: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 500,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h5-heavy: (
+      font-family: 'Inter',
+      font-size: 16px,
+      font-weight: bold,
+      line-height: 145.00000476837158%,
+        ),
+  fig-p-medium: (
+      font-family: 'Inter',
+      font-size: 14px,
+      font-weight: 600,
+      line-height: 145.00000476837158%,
+        ),
+  fig-h3-medium: (
+      font-family: 'Inter',
+      font-size: 24px,
+      font-weight: normal,
+      line-height: 145.00000476837158%,
+        ),
+);
+
+@mixin typography-classes ($typography) {
+  @each $selector, $property in $typography {
+    &-#{$selector} {
+      @each $propName, $propValue in $property {
+        #{$propName}: #{$propValue};
+      }
+    } &-#{$selector}-important {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue !important;
+      }
+    }
+  }
+}
+
+$tb-effects: (
+  tb-internal-none-effects: (
+      box-shadow: (none), filter: (none), backdrop-filter: (none),  ),
+  figma-effects-inner-shadows-grid-standard-left: (
+      box-shadow: (inset -10px 0px 15px 0 rgba(28, 43, 59, 0.10000000149011612), inset -4px 0px 8px 0 rgba(28, 43, 59, 0.20000000298023224)),  ),
+  figma-effects-drop-shadows-knob-large-down: (
+      box-shadow: (0px 2px 5px 0 rgba(0, 0, 0, 0.15000000596046448), 0px 5px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-drop-shadows-input-focus: (
+      box-shadow: (0px 0px 5px 0 rgba(0, 0, 0, 0.10000000149011612), 0px 0px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-grid-inner-shadow-right: (
+      box-shadow: (inset -10px 0px 15px 0 rgba(28, 43, 59, 0.10000000149011612), inset -4px 0px 8px 0 rgba(28, 43, 59, 0.20000000298023224)),  ),
+  figma-effects-card-large-left: (
+      box-shadow: (-3px 0px 6px 0 rgba(0, 0, 0, 0.10000000149011612), -5px 0px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-2: (
+      box-shadow: (0px 2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px 1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  figma-effects-4: (
+      box-shadow: (0px 2px 3px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 6px 10px 4px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  figma-effects-1: (
+      box-shadow: (0px 1px 3px 1px rgba(0, 0, 0, 0.15000000596046448), 0px 1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  figma-effects-input-focus: (
+      box-shadow: (0px 0px 5px 0 rgba(0, 0, 0, 0.10000000149011612), 0px 0px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-inner-shadow-bottom: (
+      box-shadow: (inset 0px -5px 10px 0 rgba(28, 43, 59, 0.05000000074505806), inset 0px -2px 4px 0 rgba(28, 43, 59, 0.15000000596046448)),  ),
+  figma-effects-drop-shadows-card-large-up: (
+      box-shadow: (0px -3px 6px 0 rgba(0, 0, 0, 0.10000000149011612), 0px -5px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-drop-shadows-card-small-up: (
+      box-shadow: (0px -5px 10px 0 rgba(0, 0, 0, 0.05000000074505806), 0px -2px 4px 0 rgba(0, 0, 0, 0.15000000596046448)),  ),
+  figma-effects-knob-small-down: (
+      box-shadow: (0px 2px 4px 0 rgba(0, 0, 0, 0.15000000596046448), 0px 3px 5px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-drop-shadows-card-large-down: (
+      box-shadow: (0px 3px 6px 0 rgba(0, 0, 0, 0.10000000149011612), 0px 5px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  figma-effects-drop-shadows-card-small-down: (
+      box-shadow: (0px 5px 10px 0 rgba(0, 0, 0, 0.05000000074505806), 0px 2px 4px 0 rgba(0, 0, 0, 0.15000000596046448)),  ),
+  figma-effects-3: (
+      box-shadow: (0px 1px 3px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 4px 8px 3px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  figma-effects-bottom-nav-top: (
+      box-shadow: (0px -2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px -1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  figma-effects-2-up: (
+      box-shadow: (0px -2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px -1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  figma-effects-inner-shadows-small-up: (
+      box-shadow: (inset 0px -5px 10px 0 rgba(28, 43, 59, 0.05000000074505806), inset 0px -2px 4px 0 rgba(28, 43, 59, 0.15000000596046448)),  ),
+  figma-effects-5: (
+      box-shadow: (0px 4px 4px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 8px 12px 6px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  fig-effect-3: (
+      box-shadow: (0px 1px 3px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 4px 8px 3px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  fig-bottom-nav-top: (
+      box-shadow: (0px -2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px -1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  fig-grid-inner-shadow-right: (
+      box-shadow: (inset -10px 0px 15px 0 rgba(28, 43, 59, 0.10000000149011612), inset -4px 0px 8px 0 rgba(28, 43, 59, 0.20000000298023224)),  ),
+  fig-effect-4: (
+      box-shadow: (0px 2px 3px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 6px 10px 4px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  fig-input-focus: (
+      box-shadow: (0px 0px 5px 0 rgba(0, 0, 0, 0.10000000149011612), 0px 0px 10px 0 rgba(0, 0, 0, 0.20000000298023224)),  ),
+  fig-effect-1: (
+      box-shadow: (0px 1px 3px 1px rgba(0, 0, 0, 0.15000000596046448), 0px 1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  fig-effect-5: (
+      box-shadow: (0px 4px 4px 0 rgba(0, 0, 0, 0.30000001192092896), 0px 8px 12px 6px rgba(0, 0, 0, 0.15000000596046448)),  ),
+  fig-2-up: (
+      box-shadow: (0px -2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px -1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+  fig-inner-shadow-bottom: (
+      box-shadow: (inset 0px -5px 10px 0 rgba(28, 43, 59, 0.05000000074505806), inset 0px -2px 4px 0 rgba(28, 43, 59, 0.15000000596046448)),  ),
+  fig-effect-2: (
+      box-shadow: (0px 2px 6px 2px rgba(0, 0, 0, 0.15000000596046448), 0px 1px 2px 0 rgba(0, 0, 0, 0.30000001192092896)),  ),
+);
+
+@mixin effects-classes ($effects) {
+  @each $selector, $property in $effects {
+    &-#{$selector} {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue;
+      }
+    } &-#{$selector}-important {
+      @each $propName, $propValue in $property {
+        #{$propName}: $propValue !important;
+      }
+    }
+  }
+}

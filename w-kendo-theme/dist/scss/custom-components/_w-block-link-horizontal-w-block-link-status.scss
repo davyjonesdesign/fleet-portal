@@ -1,0 +1,54 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-card.w-block-link-horizontal.w-block-link-horizontal-alert.k-card-horizontal .w-icon-wrapper{
+    background-color: $tb-figma-status-warning-2;
+            background-image: none;
+        
+}
+    .k-card.w-block-link-horizontal.w-block-link-horizontal-alert.k-card-horizontal .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-status-warning;
+        
+}
+    .k-card.w-block-link-horizontal.w-block-link-horizontal-alert.k-card-horizontal .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09a";
+        
+}
+    .k-card.w-block-link-horizontal.w-block-link-status.k-card-horizontal .w-icon-wrapper{
+    background-color: $tb-figma-status-warning-2;
+            background-image: none;
+        
+}
+    .k-card.w-block-link-horizontal.w-block-link-status.k-card-horizontal .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-status-warning;
+        
+}
+    .k-card.w-block-link-horizontal.w-block-link-status.k-card-horizontal .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09a";
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status .w-icon-wrapper{
+    background-color: $tb-figma-status-info-2;
+            background-image: none;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status .k-icon.k-font-icon.k-i-star{
+    font-size: 30px;
+            color: $tb-figma-status-info;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status .w-icon-wrapper .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09e";
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status:hover .w-icon-wrapper{
+    background-color: initial;
+            background-image: none;
+        
+}
+    .k-card.k-card-horizontal.w-block-link-horizontal.w-block-link-status .k-icon.k-font-icon.w-k-i-info{
+    font-family: DesignIconsFont_1;
+        
+}

@@ -1,0 +1,54 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-odometer-box .w-h4-heavy{
+                    @extend %tb-typography-fig-h4-heavy;
+          width: auto;
+            color: $tb-figma-neutral-dark-2;
+        
+}
+    .w-odometer-box{
+                    @extend %tb-typography-fig-h4-heavy;
+          display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            height: 70px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            min-width: 40px;
+            background-color: $tb-figma-neutral-light-2;
+            background-image: none;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-right-width: 1px;
+            border-top-width: 1px;
+            border-bottom-color: $tb-figma-neutral;
+            border-bottom-style: solid;
+            border-left-color: $tb-figma-neutral;
+            border-left-style: solid;
+            border-right-color: $tb-figma-neutral;
+            border-right-style: solid;
+            border-top-color: $tb-figma-neutral;
+            border-top-style: solid;
+            max-width: 70px;
+            width: 100%;
+            min-height: unset;
+        
+}
+    .w-odometer-box .w-h3-heavy{
+                    @extend %tb-typography-fig-h3-heavy;
+          color: $tb-figma-neutral-dark-2;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+        
+}

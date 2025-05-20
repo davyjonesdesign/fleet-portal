@@ -1,0 +1,15 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-odometer-boxes{
+    display: flex;
+            flex-direction: row;
+            column-gap: 20px;
+            max-width: 520px;
+            min-width: 300px;
+            width: 100%;
+            align-items: center;
+        
+}

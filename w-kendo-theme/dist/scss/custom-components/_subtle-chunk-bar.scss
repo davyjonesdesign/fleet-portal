@@ -1,0 +1,35 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-subtle-chunk-bar.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunks.k-reset{
+    border-bottom-left-radius: $tb-figma-border-radius-full;
+            border-bottom-right-radius: $tb-figma-border-radius-full;
+            border-top-left-radius: $tb-figma-border-radius-full;
+            border-top-right-radius: $tb-figma-border-radius-full;
+            overflow: hidden;
+            column-gap: 5px;
+        
+}
+    .w-subtle-chunk-bar.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal{
+    background-color: initial;
+            background-image: none;
+            width: 100%;
+        
+}
+    .w-subtle-chunk-bar.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk.k-first.k-selected{
+    background-color: $tb-figma-primary-light;
+            background-image: none;
+        
+}
+    .w-subtle-chunk-bar.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk.k-selected{
+    background-color: $tb-figma-primary-light;
+            background-image: none;
+        
+}
+    .w-subtle-chunk-bar.k-progressbar.k-chunk-progressbar.k-progressbar-horizontal .k-progressbar-chunk{
+    background-color: $tb-figma-neutral-light-2;
+            background-image: none;
+        
+}

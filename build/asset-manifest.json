@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/kendo-ui-testing/static/css/main.5728be3e.css",
+    "main.js": "/kendo-ui-testing/static/js/main.474e4438.js",
+    "static/js/488.e59d0f32.chunk.js": "/kendo-ui-testing/static/js/488.e59d0f32.chunk.js",
+    "static/media/kendo-font-icons.ttf": "/kendo-ui-testing/static/media/kendo-font-icons.2c2e27346dd6f576d6bf.ttf",
+    "static/media/Inter-ExtraBoldItalic.woff2": "/kendo-ui-testing/static/media/Inter-ExtraBoldItalic.484f10179d33fa2992d9.woff2",
+    "static/media/Inter-BoldItalic.woff2": "/kendo-ui-testing/static/media/Inter-BoldItalic.2cf00dc06f67faff98c2.woff2",
+    "static/media/Inter-SemiBoldItalic.woff2": "/kendo-ui-testing/static/media/Inter-SemiBoldItalic.688008097bc0cd638745.woff2",
+    "static/media/Inter-MediumItalic.woff2": "/kendo-ui-testing/static/media/Inter-MediumItalic.8bf30aa670a798f1dc70.woff2",
+    "static/media/Inter-LightItalic.woff2": "/kendo-ui-testing/static/media/Inter-LightItalic.5336b8e1c76e1ab00547.woff2",
+    "static/media/Inter-ExtraLightItalic.woff2": "/kendo-ui-testing/static/media/Inter-ExtraLightItalic.e7ecb03b270636f4642a.woff2",
+    "static/media/Inter-BlackItalic.woff2": "/kendo-ui-testing/static/media/Inter-BlackItalic.bb94c5836b3fd7d86c46.woff2",
+    "static/media/Inter-Italic.woff2": "/kendo-ui-testing/static/media/Inter-Italic.6d7a749f5b9f8ce1ae13.woff2",
+    "static/media/Inter-ThinItalic.woff2": "/kendo-ui-testing/static/media/Inter-ThinItalic.7c76674c7eeffe6a82f3.woff2",
+    "static/media/Inter-ExtraBold.woff2": "/kendo-ui-testing/static/media/Inter-ExtraBold.4378ab437cddfc2bbb71.woff2",
+    "static/media/Inter-Bold.woff2": "/kendo-ui-testing/static/media/Inter-Bold.54851dc3f5ada849af04.woff2",
+    "static/media/Inter-SemiBold.woff2": "/kendo-ui-testing/static/media/Inter-SemiBold.594041393209f0003754.woff2",
+    "static/media/Inter-Medium.woff2": "/kendo-ui-testing/static/media/Inter-Medium.da6143a97b8ed2ae857b.woff2",
+    "static/media/Inter-ExtraLight.woff2": "/kendo-ui-testing/static/media/Inter-ExtraLight.f270980df31d894beaf0.woff2",
+    "static/media/Inter-Light.woff2": "/kendo-ui-testing/static/media/Inter-Light.8b60946b13251c212cac.woff2",
+    "static/media/Inter-Black.woff2": "/kendo-ui-testing/static/media/Inter-Black.037d78a2cd9135e7d2c1.woff2",
+    "static/media/Inter-Regular.woff2": "/kendo-ui-testing/static/media/Inter-Regular.85c128721035823e5405.woff2",
+    "static/media/Inter-Thin.woff2": "/kendo-ui-testing/static/media/Inter-Thin.330d40f9d3469c8e913e.woff2",
+    "static/media/DesignIconsFont_1.woff": "/kendo-ui-testing/static/media/DesignIconsFont_1.80ad94507a4032fad89e.woff",
+    "index.html": "/kendo-ui-testing/index.html",
+    "main.5728be3e.css.map": "/kendo-ui-testing/static/css/main.5728be3e.css.map",
+    "main.474e4438.js.map": "/kendo-ui-testing/static/js/main.474e4438.js.map",
+    "488.e59d0f32.chunk.js.map": "/kendo-ui-testing/static/js/488.e59d0f32.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5728be3e.css",
+    "static/js/main.474e4438.js"
+  ]
+}

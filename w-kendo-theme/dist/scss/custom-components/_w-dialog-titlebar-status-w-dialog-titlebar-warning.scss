@@ -1,0 +1,13 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-dialog-titlebar-status.w-dialog-titlebar-warning .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09a";
+        
+}
+    .w-dialog-titlebar-status.w-dialog-titlebar-warning .k-icon.k-font-icon.k-i-star{
+    color: $tb-warning-2;
+        
+}

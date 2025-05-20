@@ -1,0 +1,15 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .w-input-search-container .k-icon.k-font-icon.k-i-star.w-icon-search{
+    font-family: DesignIconsFont_1;
+            font-size: 30px;
+            color: $tb-figma-neutral-dark-2;
+        
+}
+    .w-input-search-container .k-icon.k-font-icon.k-i-star.w-icon-search::before{
+    content: "\e046";
+        
+}

@@ -1,0 +1,85 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status{
+    border-bottom-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-top-style: none;
+            height: 60px;
+            justify-content: center;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            width: auto;
+            color: $tb-info-2;
+            align-items: center;
+            background-color: initial;
+            background-image: none;
+            column-gap: 10px;
+            min-width: 300px;
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-icon.k-font-icon.k-i-star{
+    font-family: DesignIconsFont_1;
+            font-size: 40px;
+            color: $tb-info-2;
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09e";
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-window-titlebar-actions.k-dialog-titlebar-actions{
+    align-items: start;
+            justify-content: end;
+            height: 80px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-icon.k-font-icon.k-i-x.k-button-icon{
+    color: $tb-figma-neutral-dark-2;
+            font-size: 30px;
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-window-titlebar-actions.k-dialog-titlebar-actions .k-button.k-button-md.k-button-flat.k-button-flat-base.k-rounded-md.k-icon-button.k-window-titlebar-action.k-dialog-titlebar-action .k-icon.k-font-icon.k-i-x.k-button-icon::before{
+    content: "\e054";
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .w-placeholder{
+    width: 40px;
+        
+}
+    .k-window-titlebar.k-dialog-titlebar.w-dialog-titlebar-status .k-button.k-button-md.k-button-flat.k-button-flat-base.k-rounded-md.k-icon-button.k-window-titlebar-action.k-dialog-titlebar-action{
+    width: 30px;
+            height: 30px;
+        
+}
+    .w-dialog-titlebar-status{
+    display: inline-flex;
+            height: 60px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        
+}
+    .w-dialog-titlebar-status .k-icon.k-font-icon.k-i-star{
+    font-family: DesignIconsFont_1;
+            font-size: 40px;
+            color: $tb-info-2;
+            margin-left: 65px;
+        
+}
+    .w-dialog-titlebar-status .k-icon.k-font-icon.k-i-star::before{
+    content: "\e09e";
+        
+}
+    .w-dialog-titlebar-status .w-placeholder{
+    width: 40px;
+        
+}

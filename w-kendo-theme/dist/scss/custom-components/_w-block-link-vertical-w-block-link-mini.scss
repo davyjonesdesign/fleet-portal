@@ -1,0 +1,72 @@
+@use '../tokens' as *;
+  @use '../placeholders' as *;
+
+  @use '../kendo' as *;
+
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .w-icon-wrapper{
+    background-color: rgba(0,0,0,0);
+            border-bottom-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-top-style: none;
+            padding-top: 0px;
+            justify-content: center;
+            max-height: 40px;
+            min-height: 60px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-primary;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .k-card-title{
+    text-align: center;
+            width: auto;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .k-card-subtitle{
+    text-align: center;
+            white-space: normal;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini{
+    row-gap: 5px;
+            width: auto;
+            align-items: stretch;
+            padding-bottom: 8px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            justify-content: start;
+            max-width: 100px;
+            height: auto;
+            min-height: 140px;
+            min-width: 160px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .k-card-header{
+    width: auto;
+            padding-left: 0px;
+            padding-right: 0px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini:hover .k-icon.k-font-icon.k-i-star{
+    color: $tb-figma-primary-dark;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .k-card-title.w-block-link-mini-title{
+    white-space: normal;
+            word-spacing: 200px;
+            margin-bottom: 0px;
+            max-height: 60px;
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini .w-icon-wrapper .k-icon.k-font-icon.k-i-star.w-icon::before{
+    content: "\e046";
+        
+}
+    .k-card.k-card-vertical.w-block-link-vertical.w-block-link-mini:hover .w-icon-wrapper{
+    background-color: initial;
+            background-image: none;
+        
+}
