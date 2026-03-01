@@ -15,11 +15,26 @@ import {
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
   const [bookings, setBookings] = useState([])
+import { Truck, Activity, Wrench, AlertCircle, TrendingUp, BellRing } from 'lucide-react'
+import { Truck, Activity, Wrench, AlertCircle, TrendingUp, ShieldAlert, Clock3, ShieldCheck, FileText } from 'lucide-react'
+import VehicleCard from './VehicleCard'
+import DriverCommsPanel from './communications/DriverCommsPanel'
+import { supabase, isSupabaseConfigured } from '../supabaseClient'
+import { demoVehicles, demoStats, demoDriverMessages } from '../utils/demoData'
+import CompliancePanel from './compliance/CompliancePanel'
+import { computeComplianceSummary } from '../utils/compliance'
+import { demoVehicles, demoStats, demoComplianceRecords, demoGeneratedReports } from '../utils/demoData'
+
+export default function Dashboard() {
+  const [vehicles, setVehicles] = useState([])
+  const [driverMessages, setDriverMessages] = useState([])
   const [stats, setStats] = useState(null)
   const [filter, setFilter] = useState('all')
   const [activeTab, setActiveTab] = useState('fleet')
   const [loading, setLoading] = useState(true)
   const [isDemoMode, setIsDemoMode] = useState(false)
+  const [complianceRecords, setComplianceRecords] = useState([])
+  const [generatedReports, setGeneratedReports] = useState([])
 
   useEffect(() => {
     loadData()
@@ -54,6 +69,20 @@ export default function Dashboard() {
         setVehicles(vehiclesData)
         setBookings(withBookingConflictFlags(bookingsData))
         calculateStats(vehiclesData)
+        const { data: messagesData, error: messagesError } = await supabase
+          .from('driver_messages')
+          .select('*')
+          .order('sent_at', { ascending: false })
+
+        if (messagesError) {
+          console.error('Error loading driver messages from Supabase:', messagesError)
+          setDriverMessages([])
+        } else {
+          setDriverMessages(messagesData || [])
+        }
+
+        setVehicles(vehiclesData)
+        calculateStats(vehiclesData, messagesData || [])
         setIsDemoMode(false)
       } catch (error) {
         console.error('Error loading from Supabase:', error)
@@ -68,18 +97,30 @@ export default function Dashboard() {
 
   function useDemoData() {
     setVehicles(demoVehicles)
+    setDriverMessages(demoDriverMessages)
+    calculateStats(demoVehicles, demoDriverMessages)
     setStats(demoStats)
     setBookings(withBookingConflictFlags(demoBookings))
+    setComplianceRecords(demoComplianceRecords)
+    setGeneratedReports(demoGeneratedReports)
     setIsDemoMode(true)
   }
 
-  function calculateStats(vehicleData) {
+  function calculateStats(vehicleData, messageData = []) {
     const total = vehicleData.length
     const active = vehicleData.filter((vehicle) => vehicle.status === 'active').length
     const idle = vehicleData.filter((vehicle) => vehicle.status === 'idle').length
     const maintenance = vehicleData.filter((vehicle) => vehicle.status === 'maintenance').length
     const maintenanceAlerts = vehicleData.filter((vehicle) => vehicle.maintenance_due).length
     const avgFuel = Math.round(vehicleData.reduce((sum, vehicle) => sum + vehicle.fuel_level, 0) / total)
+    const active = vehicleData.filter(v => v.status === 'active').length
+    const idle = vehicleData.filter(v => v.status === 'idle').length
+    const maintenance = vehicleData.filter(v => v.status === 'maintenance').length
+    const maintenanceAlerts = vehicleData.filter(v => v.maintenance_due).length
+    const unacknowledgedMessages = messageData.filter(m => !m.acknowledged_at).length
+    const avgFuel = total
+      ? Math.round(vehicleData.reduce((sum, v) => sum + v.fuel_level, 0) / total)
+      : 0
 
     setStats({
       total_vehicles: total,
@@ -88,6 +129,7 @@ export default function Dashboard() {
       maintenance_vehicles: maintenance,
       average_fuel_level: avgFuel,
       maintenance_alerts: maintenanceAlerts,
+      unacknowledged_messages: unacknowledgedMessages,
     })
   }
 
@@ -106,10 +148,55 @@ export default function Dashboard() {
   }
 
   const filteredVehicles = vehicles.filter((vehicle) => {
+  async function handleSendMessage(messagePayload) {
+    const newMessage = {
+      id: Date.now(),
+      ...messagePayload,
+      sent_at: new Date().toISOString(),
+      acknowledged_at: null,
+    }
+
+    setDriverMessages(prev => {
+      const nextMessages = [newMessage, ...prev]
+      calculateStats(vehicles, nextMessages)
+      return nextMessages
+    })
+
+    if (isSupabaseConfigured() && !isDemoMode) {
+      const { error } = await supabase.from('driver_messages').insert({
+        driver_name: messagePayload.driver_name,
+        vehicle_id: messagePayload.vehicle_id,
+        priority: messagePayload.priority,
+        text: messagePayload.text,
+      })
+
+      if (error) {
+        console.error('Error writing driver message:', error)
+      }
+    }
+  }
+
+  const filteredVehicles = vehicles.filter(vehicle => {
     if (filter === 'all') return true
     if (filter === 'alerts') return vehicle.maintenance_due || vehicle.fuel_level < 30
     return vehicle.status === filter
   })
+
+  const activeDrivers = vehicles
+    .filter(vehicle => vehicle.status === 'active' && vehicle.driver_name)
+    .map(vehicle => ({
+      vehicle_id: vehicle.id,
+      vehicle_name: vehicle.vehicle_name,
+      driver_name: vehicle.driver_name,
+    }))
+
+  const pendingAcksByVehicle = driverMessages.reduce((acc, message) => {
+    if (!message.acknowledged_at) {
+      acc[message.vehicle_id] = (acc[message.vehicle_id] || 0) + 1
+    }
+    return acc
+  }, {})
+  const complianceSummary = computeComplianceSummary(complianceRecords)
 
   const StatCard = ({ icon: Icon, label, value, color, trend }) => (
     <div
@@ -269,6 +356,71 @@ export default function Dashboard() {
                   <VehicleCard vehicle={vehicle} />
                 </div>
               ))}
+            <StatCard
+              icon={BellRing}
+              label="Unacknowledged"
+              value={stats.unacknowledged_messages}
+              color="var(--color-warning)"
+            />
+            <StatCard
+              icon={Wrench}
+              label="In Maintenance"
+              value={stats.maintenance_vehicles}
+              color="var(--color-danger)"
+            />
+            <StatCard
+              icon={ShieldAlert}
+              label="Compliance Overdue"
+              value={complianceSummary.critical}
+              color="var(--color-danger)"
+            />
+            <StatCard
+              icon={Clock3}
+              label="Compliance Due Soon"
+              value={complianceSummary.warning}
+              color="var(--color-warning)"
+            />
+            <StatCard
+              icon={ShieldCheck}
+              label="Compliance Clear"
+              value={complianceSummary.clear}
+              color="var(--color-success)"
+            />
+            <StatCard
+              icon={FileText}
+              label="Missing Metadata"
+              value={complianceSummary.info}
+              color="var(--color-text-dim)"
+            />
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: '12px', marginBottom: '30px', flexWrap: 'wrap' }}>
+          <FilterButton value="all" label="All Vehicles" count={vehicles.length} />
+          <FilterButton value="active" label="Active" count={stats?.active_vehicles} />
+          <FilterButton value="idle" label="Idle" count={stats?.idle_vehicles} />
+          <FilterButton value="maintenance" label="Maintenance" count={stats?.maintenance_vehicles} />
+          <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
+        </div>
+
+        <div style={{ marginBottom: '30px' }}>
+          <DriverCommsPanel
+            activeDrivers={activeDrivers}
+            messages={driverMessages}
+            onSendMessage={handleSendMessage}
+          />
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+            gap: '20px',
+          }}
+        >
+          {filteredVehicles.map((vehicle, index) => (
+            <div key={vehicle.id} style={{ animationDelay: `${index * 0.1}s` }}>
+              <VehicleCard vehicle={vehicle} pendingAcknowledgements={pendingAcksByVehicle[vehicle.id] || 0} />
             </div>
 
             {filteredVehicles.length === 0 && (
@@ -286,6 +438,8 @@ export default function Dashboard() {
             <BookingForm vehicles={vehicles} onCreateBooking={addBooking} hasConflict={bookingHasConflict} />
           </div>
         )}
+
+        <CompliancePanel records={complianceRecords} reports={generatedReports} vehicles={vehicles} />
       </div>
     </div>
   )

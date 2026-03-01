@@ -165,3 +165,94 @@ export function withBookingConflictFlags(bookings) {
     has_conflict: hasVehicleTimeConflict(bookings, booking, booking.id),
   }))
 }
+
+export const demoDriverMessages = [
+  {
+    id: 1,
+    driver_name: 'Michael Chen',
+    vehicle_id: 1,
+    priority: 'critical',
+    text: 'Immediate reroute required due to road closure on 7th Avenue.',
+    sent_at: new Date(Date.now() - 40 * 60000).toISOString(),
+    acknowledged_at: null,
+  },
+  {
+    id: 2,
+    driver_name: 'Sarah Rodriguez',
+    vehicle_id: 2,
+    priority: 'warning',
+    text: 'Fuel stop recommended before next pickup window.',
+    sent_at: new Date(Date.now() - 75 * 60000).toISOString(),
+    acknowledged_at: new Date(Date.now() - 55 * 60000).toISOString(),
+  },
+  {
+    id: 3,
+    driver_name: 'James Wilson',
+    vehicle_id: 5,
+    priority: 'info',
+    text: 'Customer loading dock is available 10 minutes early.',
+    sent_at: new Date(Date.now() - 20 * 60000).toISOString(),
+    acknowledged_at: null,
+export const demoComplianceRecords = [
+  {
+    id: 1,
+    doc_type: 'inspection',
+    vehicle_id: 1,
+    status: 'submitted',
+    due_date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    last_submitted_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 2,
+    doc_type: 'insurance',
+    vehicle_id: 2,
+    status: 'approved',
+    due_date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+    last_submitted_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 3,
+    doc_type: 'registration',
+    vehicle_id: 3,
+    status: 'approved',
+    due_date: new Date(Date.now() + 18 * 24 * 60 * 60 * 1000).toISOString(),
+    last_submitted_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 4,
+    doc_type: 'maintenance log',
+    vehicle_id: 4,
+    status: 'pending',
+    due_date: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString(),
+    last_submitted_at: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 5,
+    doc_type: 'driver hours summary',
+    vehicle_id: 5,
+    status: 'missing',
+    due_date: null,
+    last_submitted_at: null,
+  },
+]
+
+export const demoGeneratedReports = [
+  {
+    id: 1,
+    report_name: 'Weekly Fleet Compliance Snapshot',
+    generated_at: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+    download_url: '#',
+  },
+  {
+    id: 2,
+    report_name: 'Insurance Renewal Queue',
+    generated_at: new Date(Date.now() - 27 * 60 * 60 * 1000).toISOString(),
+    download_url: '#',
+  },
+  {
+    id: 3,
+    report_name: 'Driver Hours Monthly Rollup',
+    generated_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    download_url: '#',
+  },
+]
