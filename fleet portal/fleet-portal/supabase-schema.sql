@@ -18,9 +18,27 @@ CREATE TABLE IF NOT EXISTS vehicles (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create index for faster queries
+-- Create bookings table
+CREATE TABLE IF NOT EXISTS bookings (
+  id BIGSERIAL PRIMARY KEY,
+  client TEXT NOT NULL,
+  pickup_at TIMESTAMPTZ NOT NULL,
+  dropoff_at TIMESTAMPTZ NOT NULL,
+  vehicle_id BIGINT NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
+  vehicle_type TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN ('requested', 'confirmed', 'in-progress', 'completed', 'cancelled')) DEFAULT 'requested',
+  special_notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  CONSTRAINT bookings_time_window_valid CHECK (dropoff_at > pickup_at)
+);
+
+-- Create indexes for faster queries
 CREATE INDEX IF NOT EXISTS idx_vehicles_status ON vehicles(status);
 CREATE INDEX IF NOT EXISTS idx_vehicles_maintenance_due ON vehicles(maintenance_due);
+CREATE INDEX IF NOT EXISTS idx_bookings_vehicle_id ON bookings(vehicle_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_pickup_at ON bookings(pickup_at);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
 
 -- Insert demo data
 INSERT INTO vehicles (vehicle_name, license_plate, status, driver_name, location, mileage, fuel_level, next_maintenance, maintenance_due) VALUES
@@ -32,11 +50,29 @@ INSERT INTO vehicles (vehicle_name, license_plate, status, driver_name, location
 ('Pickup Truck 15', 'FLT-7731', 'idle', NULL, 'North Yard', 67234, 55, NOW() + INTERVAL '10 days', FALSE)
 ON CONFLICT (license_plate) DO NOTHING;
 
+INSERT INTO bookings (client, pickup_at, dropoff_at, vehicle_id, vehicle_type, status, special_notes)
+SELECT *
+FROM (
+  VALUES
+    ('Acme Retail', NOW() + INTERVAL '2 hours', NOW() + INTERVAL '6 hours', 1, 'Sprinter Van 01', 'confirmed', 'Fragile goods. Use rear dock.'),
+    ('Blue Harbor Foods', NOW() + INTERVAL '4 hours', NOW() + INTERVAL '7 hours', 1, 'Sprinter Van 01', 'requested', 'Potential overlap to demo conflict highlighting.'),
+    ('Northline Medical', NOW() + INTERVAL '1 day', NOW() + INTERVAL '1 day 6 hours', 2, 'Cargo Truck 03', 'in-progress', ''),
+    ('South Plaza Hotel', NOW() - INTERVAL '12 hours', NOW() - INTERVAL '4 hours', 5, 'Sprinter Van 08', 'completed', ''),
+    ('City Events Co.', NOW() + INTERVAL '2 days', NOW() + INTERVAL '2 days 7 hours', 6, 'Pickup Truck 15', 'cancelled', 'Cancelled by client.')
+) AS demo(client, pickup_at, dropoff_at, vehicle_id, vehicle_type, status, special_notes)
+WHERE EXISTS (SELECT 1 FROM vehicles WHERE id = demo.vehicle_id)
+ON CONFLICT DO NOTHING;
+
 -- Enable Row Level Security (RLS)
 ALTER TABLE vehicles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 
 -- Create policy to allow public read access (adjust based on your needs)
 CREATE POLICY "Allow public read access" ON vehicles
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow public bookings read access" ON bookings
   FOR SELECT
   USING (true);
 
@@ -49,6 +85,14 @@ CREATE POLICY "Allow authenticated update" ON vehicles
   FOR UPDATE
   USING (auth.role() = 'authenticated');
 
+CREATE POLICY "Allow authenticated booking insert" ON bookings
+  FOR INSERT
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated booking update" ON bookings
+  FOR UPDATE
+  USING (auth.role() = 'authenticated');
+
 -- Optional: Create a function to automatically update the updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -58,5 +102,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_vehicles_updated_at ON vehicles;
 CREATE TRIGGER update_vehicles_updated_at BEFORE UPDATE ON vehicles
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_bookings_updated_at ON bookings;
+CREATE TRIGGER update_bookings_updated_at BEFORE UPDATE ON bookings
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
