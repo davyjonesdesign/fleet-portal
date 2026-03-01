@@ -79,6 +79,59 @@ export const demoVehicles = [
   },
 ]
 
+export const demoBookings = [
+  {
+    id: 1,
+    client: 'Acme Retail',
+    pickup_at: new Date(Date.now() + 2 * 60 * 60000).toISOString(),
+    dropoff_at: new Date(Date.now() + 6 * 60 * 60000).toISOString(),
+    vehicle_id: 1,
+    vehicle_type: 'Sprinter Van 01',
+    status: 'confirmed',
+    special_notes: 'Fragile goods. Use rear dock.',
+  },
+  {
+    id: 2,
+    client: 'Blue Harbor Foods',
+    pickup_at: new Date(Date.now() + 4 * 60 * 60000).toISOString(),
+    dropoff_at: new Date(Date.now() + 7 * 60 * 60000).toISOString(),
+    vehicle_id: 1,
+    vehicle_type: 'Sprinter Van 01',
+    status: 'requested',
+    special_notes: 'Potential overlap to demo conflict highlighting.',
+  },
+  {
+    id: 3,
+    client: 'Northline Medical',
+    pickup_at: new Date(Date.now() + 24 * 60 * 60000).toISOString(),
+    dropoff_at: new Date(Date.now() + 30 * 60 * 60000).toISOString(),
+    vehicle_id: 2,
+    vehicle_type: 'Cargo Truck 03',
+    status: 'in-progress',
+    special_notes: '',
+  },
+  {
+    id: 4,
+    client: 'South Plaza Hotel',
+    pickup_at: new Date(Date.now() - 12 * 60 * 60000).toISOString(),
+    dropoff_at: new Date(Date.now() - 4 * 60 * 60000).toISOString(),
+    vehicle_id: 5,
+    vehicle_type: 'Sprinter Van 08',
+    status: 'completed',
+    special_notes: '',
+  },
+  {
+    id: 5,
+    client: 'City Events Co.',
+    pickup_at: new Date(Date.now() + 48 * 60 * 60000).toISOString(),
+    dropoff_at: new Date(Date.now() + 55 * 60 * 60000).toISOString(),
+    vehicle_id: 6,
+    vehicle_type: 'Pickup Truck 15',
+    status: 'cancelled',
+    special_notes: 'Cancelled by client.',
+  },
+]
+
 export const demoStats = {
   total_vehicles: 6,
   active_vehicles: 3,
@@ -88,6 +141,30 @@ export const demoStats = {
   maintenance_alerts: 2,
 }
 
+function doTimeRangesOverlap(startA, endA, startB, endB) {
+  return startA < endB && endA > startB
+}
+
+export function hasVehicleTimeConflict(bookings, bookingCandidate, excludeBookingId = null) {
+  const candidateStart = new Date(bookingCandidate.pickup_at)
+  const candidateEnd = new Date(bookingCandidate.dropoff_at)
+
+  return bookings.some((booking) => {
+    if (excludeBookingId && booking.id === excludeBookingId) return false
+    if (booking.vehicle_id !== Number(bookingCandidate.vehicle_id)) return false
+
+    const existingStart = new Date(booking.pickup_at)
+    const existingEnd = new Date(booking.dropoff_at)
+    return doTimeRangesOverlap(candidateStart, candidateEnd, existingStart, existingEnd)
+  })
+}
+
+export function withBookingConflictFlags(bookings) {
+  return bookings.map((booking) => ({
+    ...booking,
+    has_conflict: hasVehicleTimeConflict(bookings, booking, booking.id),
+  }))
+}
 
 export const demoDriverMessages = [
   {

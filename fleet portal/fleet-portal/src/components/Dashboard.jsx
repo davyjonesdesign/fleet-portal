@@ -1,4 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { Truck, Activity, Wrench, AlertCircle, TrendingUp, CalendarDays } from 'lucide-react'
+import VehicleCard from './VehicleCard'
+import BookingBoard from './scheduling/BookingBoard'
+import BookingForm from './scheduling/BookingForm'
+import { supabase, isSupabaseConfigured } from '../supabaseClient'
+import {
+  demoVehicles,
+  demoStats,
+  demoBookings,
+  hasVehicleTimeConflict,
+  withBookingConflictFlags,
+} from '../utils/demoData'
+
+export default function Dashboard() {
+  const [vehicles, setVehicles] = useState([])
+  const [bookings, setBookings] = useState([])
 import { Truck, Activity, Wrench, AlertCircle, TrendingUp, BellRing } from 'lucide-react'
 import { Truck, Activity, Wrench, AlertCircle, TrendingUp, ShieldAlert, Clock3, ShieldCheck, FileText } from 'lucide-react'
 import VehicleCard from './VehicleCard'
@@ -14,6 +30,7 @@ export default function Dashboard() {
   const [driverMessages, setDriverMessages] = useState([])
   const [stats, setStats] = useState(null)
   const [filter, setFilter] = useState('all')
+  const [activeTab, setActiveTab] = useState('fleet')
   const [loading, setLoading] = useState(true)
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [complianceRecords, setComplianceRecords] = useState([])
@@ -35,6 +52,23 @@ export default function Dashboard() {
 
         if (vehiclesError) throw vehiclesError
 
+        let bookingsData = []
+        try {
+          const { data, error: bookingsError } = await supabase
+            .from('bookings')
+            .select('*')
+            .order('pickup_at', { ascending: true })
+
+          if (bookingsError) throw bookingsError
+          bookingsData = data || []
+        } catch (bookingsError) {
+          console.error('Error loading bookings from Supabase, using demo bookings:', bookingsError)
+          bookingsData = demoBookings
+        }
+
+        setVehicles(vehiclesData)
+        setBookings(withBookingConflictFlags(bookingsData))
+        calculateStats(vehiclesData)
         const { data: messagesData, error: messagesError } = await supabase
           .from('driver_messages')
           .select('*')
@@ -66,6 +100,7 @@ export default function Dashboard() {
     setDriverMessages(demoDriverMessages)
     calculateStats(demoVehicles, demoDriverMessages)
     setStats(demoStats)
+    setBookings(withBookingConflictFlags(demoBookings))
     setComplianceRecords(demoComplianceRecords)
     setGeneratedReports(demoGeneratedReports)
     setIsDemoMode(true)
@@ -73,6 +108,11 @@ export default function Dashboard() {
 
   function calculateStats(vehicleData, messageData = []) {
     const total = vehicleData.length
+    const active = vehicleData.filter((vehicle) => vehicle.status === 'active').length
+    const idle = vehicleData.filter((vehicle) => vehicle.status === 'idle').length
+    const maintenance = vehicleData.filter((vehicle) => vehicle.status === 'maintenance').length
+    const maintenanceAlerts = vehicleData.filter((vehicle) => vehicle.maintenance_due).length
+    const avgFuel = Math.round(vehicleData.reduce((sum, vehicle) => sum + vehicle.fuel_level, 0) / total)
     const active = vehicleData.filter(v => v.status === 'active').length
     const idle = vehicleData.filter(v => v.status === 'idle').length
     const maintenance = vehicleData.filter(v => v.status === 'maintenance').length
@@ -93,6 +133,21 @@ export default function Dashboard() {
     })
   }
 
+  function addBooking(newBooking) {
+    const bookingWithId = {
+      ...newBooking,
+      id: Date.now(),
+      status: newBooking.status || 'requested',
+    }
+
+    setBookings((previousBookings) => withBookingConflictFlags([...previousBookings, bookingWithId]))
+  }
+
+  function bookingHasConflict(bookingCandidate) {
+    return hasVehicleTimeConflict(bookings, bookingCandidate)
+  }
+
+  const filteredVehicles = vehicles.filter((vehicle) => {
   async function handleSendMessage(messagePayload) {
     const newMessage = {
       id: Date.now(),
@@ -183,8 +238,44 @@ export default function Dashboard() {
         letterSpacing: '0.03em',
         textTransform: 'uppercase',
       }}
+      onMouseEnter={(event) => {
+        if (filter !== value) {
+          event.currentTarget.style.background = 'var(--color-surface-hover)'
+          event.currentTarget.style.borderColor = 'var(--color-accent)'
+        }
+      }}
+      onMouseLeave={(event) => {
+        if (filter !== value) {
+          event.currentTarget.style.background = 'var(--color-surface)'
+          event.currentTarget.style.borderColor = 'var(--color-border)'
+        }
+      }}
     >
       {label} {count !== undefined && `(${count})`}
+    </button>
+  )
+
+  const TabButton = ({ value, label, icon: Icon }) => (
+    <button
+      onClick={() => setActiveTab(value)}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '10px 16px',
+        border: activeTab === value ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
+        background: activeTab === value ? 'var(--color-accent-glow)' : 'var(--color-surface)',
+        color: activeTab === value ? 'var(--color-accent)' : 'var(--color-text)',
+        borderRadius: '8px',
+        fontSize: '13px',
+        fontWeight: 600,
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
+        cursor: 'pointer',
+      }}
+    >
+      <Icon size={16} />
+      {label}
     </button>
   )
 
@@ -228,13 +319,43 @@ export default function Dashboard() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '20px',
-              marginBottom: '40px',
+              marginBottom: '30px',
             }}
           >
             <StatCard icon={Truck} label="Total Vehicles" value={stats.total_vehicles} color="var(--color-accent)" />
             <StatCard icon={Activity} label="Active Now" value={stats.active_vehicles} color="var(--color-success)" />
             <StatCard icon={AlertCircle} label="Alerts" value={stats.maintenance_alerts} color="var(--color-warning)" />
             <StatCard icon={Wrench} label="In Maintenance" value={stats.maintenance_vehicles} color="var(--color-danger)" />
+          </div>
+        )}
+
+        <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
+          <TabButton value="fleet" label="Fleet" icon={Truck} />
+          <TabButton value="scheduling" label="Scheduling" icon={CalendarDays} />
+        </div>
+
+        {activeTab === 'fleet' && (
+          <>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '30px', flexWrap: 'wrap' }}>
+              <FilterButton value="all" label="All Vehicles" count={vehicles.length} />
+              <FilterButton value="active" label="Active" count={stats?.active_vehicles} />
+              <FilterButton value="idle" label="Idle" count={stats?.idle_vehicles} />
+              <FilterButton value="maintenance" label="Maintenance" count={stats?.maintenance_vehicles} />
+              <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+                gap: '20px',
+              }}
+            >
+              {filteredVehicles.map((vehicle, index) => (
+                <div key={vehicle.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                  <VehicleCard vehicle={vehicle} />
+                </div>
+              ))}
             <StatCard
               icon={BellRing}
               label="Unacknowledged"
@@ -301,13 +422,20 @@ export default function Dashboard() {
             <div key={vehicle.id} style={{ animationDelay: `${index * 0.1}s` }}>
               <VehicleCard vehicle={vehicle} pendingAcknowledgements={pendingAcksByVehicle[vehicle.id] || 0} />
             </div>
-          ))}
-        </div>
 
-        {filteredVehicles.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-dim)' }}>
-            <AlertCircle size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
-            <p style={{ fontSize: '16px' }}>No vehicles found matching your filter</p>
+            {filteredVehicles.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-dim)' }}>
+                <AlertCircle size={48} style={{ marginBottom: '16px', opacity: 0.5 }} />
+                <p style={{ fontSize: '16px' }}>No vehicles found matching your filter</p>
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab === 'scheduling' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(320px, 1fr)', gap: '20px' }}>
+            <BookingBoard bookings={bookings} />
+            <BookingForm vehicles={vehicles} onCreateBooking={addBooking} hasConflict={bookingHasConflict} />
           </div>
         )}
 
