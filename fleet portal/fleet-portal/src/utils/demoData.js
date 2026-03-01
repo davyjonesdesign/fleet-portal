@@ -141,6 +141,66 @@ export const demoStats = {
   maintenance_alerts: 2,
 }
 
+export const demoDeliveryMilestones = [
+  {
+    id: 'ms-1001',
+    vehicle_name: 'Sprinter Van 01',
+    job_name: 'Downtown medical supplies',
+    driver_name: 'Michael Chen',
+    current_milestone: 'Checkpoint 3 / 5 - Midtown Clinic',
+    eta: new Date(Date.now() + 45 * 60000).toISOString(),
+    status: 'in transit',
+  },
+  {
+    id: 'ms-1002',
+    vehicle_name: 'Cargo Truck 03',
+    job_name: 'Warehouse transfer batch A',
+    driver_name: 'Sarah Rodriguez',
+    current_milestone: 'Loading complete - Heading to Distribution Center',
+    eta: new Date(Date.now() + 90 * 60000).toISOString(),
+    status: 'en route',
+  },
+]
+
+export const demoInvoices = [
+  {
+    invoice_id: 'INV-2026-001',
+    client_name: 'Northwind Pharmacies',
+    amount: 12450,
+    status: 'pending',
+    due_date: new Date(Date.now() + 5 * 24 * 60 * 60000).toISOString(),
+  },
+  {
+    invoice_id: 'INV-2026-002',
+    client_name: 'Rivergate Foods',
+    amount: 8650,
+    status: 'paid',
+    due_date: new Date(Date.now() - 2 * 24 * 60 * 60000).toISOString(),
+  },
+  {
+    invoice_id: 'INV-2026-003',
+    client_name: 'Apex Retail Group',
+    amount: 19320,
+    status: 'overdue',
+    due_date: new Date(Date.now() - 6 * 24 * 60 * 60000).toISOString(),
+  },
+]
+
+export const demoReports = [
+  {
+    report_type: 'Delivery Performance',
+    generated_at: new Date(Date.now() - 12 * 60 * 60000).toISOString(),
+    period: 'Last 7 days',
+  },
+  {
+    report_type: 'Client Billing Summary',
+    generated_at: new Date(Date.now() - 36 * 60 * 60000).toISOString(),
+    period: 'Current month',
+  },
+  {
+    report_type: 'Fuel Efficiency',
+    generated_at: new Date(Date.now() - 70 * 60 * 60000).toISOString(),
+    period: 'Q1 2026',
 function doTimeRangesOverlap(startA, endA, startB, endB) {
   return startA < endB && endA > startB
 }
