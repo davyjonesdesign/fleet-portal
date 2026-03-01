@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Truck, Activity, Wrench, AlertCircle, TrendingUp } from 'lucide-react'
 import VehicleCard from './VehicleCard'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
-import { demoVehicles, demoStats } from '../utils/demoData'
+import { demoVehicles, demoStats, demoDepot, demoStops } from '../utils/demoData'
+import RouteOptimizerPanel from './routing/RouteOptimizerPanel'
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
@@ -215,6 +216,8 @@ export default function Dashboard() {
           <FilterButton value="maintenance" label="Maintenance" count={stats?.maintenance_vehicles} />
           <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
         </div>
+
+        <RouteOptimizerPanel vehicles={vehicles} depot={demoDepot} defaultStops={demoStops} />
 
         {/* Vehicles Grid */}
         <div

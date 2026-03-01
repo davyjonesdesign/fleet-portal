@@ -22,6 +22,34 @@ CREATE TABLE IF NOT EXISTS vehicles (
 CREATE INDEX IF NOT EXISTS idx_vehicles_status ON vehicles(status);
 CREATE INDEX IF NOT EXISTS idx_vehicles_maintenance_due ON vehicles(maintenance_due);
 
+-- Prepare route persistence tables for future optimization workflows
+CREATE TABLE IF NOT EXISTS routes (
+  id BIGSERIAL PRIMARY KEY,
+  vehicle_id BIGINT REFERENCES vehicles(id) ON DELETE SET NULL,
+  route_name TEXT NOT NULL,
+  depot_name TEXT NOT NULL,
+  optimization_type TEXT NOT NULL DEFAULT 'basic',
+  total_distance_km NUMERIC(10,2),
+  estimated_time_minutes INTEGER,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS route_stops (
+  id BIGSERIAL PRIMARY KEY,
+  route_id BIGINT NOT NULL REFERENCES routes(id) ON DELETE CASCADE,
+  stop_name TEXT NOT NULL,
+  stop_order INTEGER NOT NULL,
+  latitude NUMERIC(9,6),
+  longitude NUMERIC(9,6),
+  estimated_arrival TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(route_id, stop_order)
+);
+
+CREATE INDEX IF NOT EXISTS idx_routes_vehicle_id ON routes(vehicle_id);
+CREATE INDEX IF NOT EXISTS idx_route_stops_route_id ON route_stops(route_id);
+
 -- Insert demo data
 INSERT INTO vehicles (vehicle_name, license_plate, status, driver_name, location, mileage, fuel_level, next_maintenance, maintenance_due) VALUES
 ('Sprinter Van 01', 'FLT-2847', 'active', 'Michael Chen', 'Downtown District', 45234, 78, NOW() + INTERVAL '7 days', FALSE),
