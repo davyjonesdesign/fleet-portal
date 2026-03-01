@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Truck, Activity, Wrench, AlertCircle, TrendingUp } from 'lucide-react'
+import { Truck, Activity, Wrench, AlertCircle, AlertTriangle, TrendingUp } from 'lucide-react'
 import VehicleCard from './VehicleCard'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
-import { demoVehicles, demoStats } from '../utils/demoData'
+import { demoVehicles } from '../utils/demoData'
+import { calculateMaintenanceRisk } from '../utils/maintenancePrediction'
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
@@ -17,7 +18,7 @@ export default function Dashboard() {
 
   async function loadData() {
     setLoading(true)
-    
+
     if (isSupabaseConfigured()) {
       try {
         // Try to load from Supabase
@@ -25,9 +26,9 @@ export default function Dashboard() {
           .from('vehicles')
           .select('*')
           .order('vehicle_name')
-        
+
         if (error) throw error
-        
+
         setVehicles(vehiclesData)
         calculateStats(vehiclesData)
         setIsDemoMode(false)
@@ -40,13 +41,13 @@ export default function Dashboard() {
       // Use demo data if Supabase not configured
       useDemoData()
     }
-    
+
     setLoading(false)
   }
 
   function useDemoData() {
     setVehicles(demoVehicles)
-    setStats(demoStats)
+    calculateStats(demoVehicles)
     setIsDemoMode(true)
   }
 
@@ -55,10 +56,17 @@ export default function Dashboard() {
     const active = vehicleData.filter(v => v.status === 'active').length
     const idle = vehicleData.filter(v => v.status === 'idle').length
     const maintenance = vehicleData.filter(v => v.status === 'maintenance').length
-    const maintenanceAlerts = vehicleData.filter(v => v.maintenance_due).length
-    const avgFuel = Math.round(
-      vehicleData.reduce((sum, v) => sum + v.fuel_level, 0) / total
-    )
+    const predictedAtRisk = vehicleData.filter(v => {
+      const risk = calculateMaintenanceRisk(v)
+      return risk.status !== 'clear'
+    }).length
+    const mergedAlerts = vehicleData.filter(v => {
+      const risk = calculateMaintenanceRisk(v)
+      return v.maintenance_due || v.fuel_level < 30 || risk.status !== 'clear'
+    }).length
+    const avgFuel = total
+      ? Math.round(vehicleData.reduce((sum, v) => sum + v.fuel_level, 0) / total)
+      : 0
 
     setStats({
       total_vehicles: total,
@@ -66,13 +74,22 @@ export default function Dashboard() {
       idle_vehicles: idle,
       maintenance_vehicles: maintenance,
       average_fuel_level: avgFuel,
-      maintenance_alerts: maintenanceAlerts,
+      predicted_at_risk: predictedAtRisk,
+      maintenance_alerts: mergedAlerts,
     })
   }
 
-  const filteredVehicles = vehicles.filter(vehicle => {
+  const vehiclesWithRisk = vehicles.map(vehicle => ({
+    ...vehicle,
+    predictedServiceRisk: calculateMaintenanceRisk(vehicle),
+  }))
+
+  const filteredVehicles = vehiclesWithRisk.filter(vehicle => {
     if (filter === 'all') return true
-    if (filter === 'alerts') return vehicle.maintenance_due || vehicle.fuel_level < 30
+    if (filter === 'predicted-risk') return vehicle.predictedServiceRisk.status !== 'clear'
+    if (filter === 'alerts') {
+      return vehicle.maintenance_due || vehicle.fuel_level < 30 || vehicle.predictedServiceRisk.status !== 'clear'
+    }
     return vehicle.status === filter
   })
 
@@ -156,10 +173,10 @@ export default function Dashboard() {
             Real-time vehicle tracking and management
           </p>
           {isDemoMode && (
-            <div style={{ 
+            <div style={{
               marginTop: '16px',
-              padding: '12px 16px', 
-              background: 'rgba(251, 191, 36, 0.1)', 
+              padding: '12px 16px',
+              background: 'rgba(251, 191, 36, 0.1)',
               border: '1px solid rgba(251, 191, 36, 0.3)',
               borderRadius: '8px',
               fontSize: '13px',
@@ -199,6 +216,12 @@ export default function Dashboard() {
               color="var(--color-warning)"
             />
             <StatCard
+              icon={AlertTriangle}
+              label="Predicted At Risk"
+              value={stats.predicted_at_risk}
+              color="var(--color-warning)"
+            />
+            <StatCard
               icon={Wrench}
               label="In Maintenance"
               value={stats.maintenance_vehicles}
@@ -213,6 +236,7 @@ export default function Dashboard() {
           <FilterButton value="active" label="Active" count={stats?.active_vehicles} />
           <FilterButton value="idle" label="Idle" count={stats?.idle_vehicles} />
           <FilterButton value="maintenance" label="Maintenance" count={stats?.maintenance_vehicles} />
+          <FilterButton value="predicted-risk" label="Predicted Risk" count={stats?.predicted_at_risk} />
           <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
         </div>
 
@@ -231,7 +255,7 @@ export default function Dashboard() {
                 animationDelay: `${index * 0.1}s`,
               }}
             >
-              <VehicleCard vehicle={vehicle} />
+              <VehicleCard vehicle={vehicle} risk={vehicle.predictedServiceRisk} />
             </div>
           ))}
         </div>
