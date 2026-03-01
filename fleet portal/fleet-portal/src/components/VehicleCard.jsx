@@ -26,6 +26,7 @@ const riskBadgeConfig = {
 }
 
 export default function VehicleCard({ vehicle, risk }) {
+export default function VehicleCard({ vehicle, pendingAcknowledgements = 0 }) {
   const lastUpdateTime = formatDistanceToNow(new Date(vehicle.last_update), { addSuffix: true })
   const maintenanceRisk = risk || calculateMaintenanceRisk(vehicle)
   const riskBadge = riskBadgeConfig[maintenanceRisk.status] || riskBadgeConfig.clear
@@ -72,6 +73,27 @@ export default function VehicleCard({ vehicle, risk }) {
           }}
         >
           MAINTENANCE DUE
+        </div>
+      )}
+
+      {pendingAcknowledgements > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            top: vehicle.maintenance_due ? '28px' : '0',
+            right: 0,
+            background: 'rgba(245, 158, 11, 0.18)',
+            color: 'var(--color-warning)',
+            borderLeft: '1px solid rgba(245, 158, 11, 0.4)',
+            borderBottom: '1px solid rgba(245, 158, 11, 0.4)',
+            padding: '4px 12px',
+            fontSize: '10px',
+            fontWeight: 600,
+            borderBottomLeftRadius: '8px',
+            letterSpacing: '0.05em',
+          }}
+        >
+          AWAITING ACKNOWLEDGEMENT ({pendingAcknowledgements})
         </div>
       )}
 
