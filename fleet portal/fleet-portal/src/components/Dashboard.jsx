@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Truck, Activity, Wrench, AlertCircle, TrendingUp } from 'lucide-react'
+import { Truck, Activity, Wrench, AlertCircle, TrendingUp, BellRing } from 'lucide-react'
 import VehicleCard from './VehicleCard'
+import DriverCommsPanel from './communications/DriverCommsPanel'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
-import { demoVehicles, demoStats } from '../utils/demoData'
+import { demoVehicles, demoStats, demoDriverMessages } from '../utils/demoData'
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
+  const [driverMessages, setDriverMessages] = useState([])
   const [stats, setStats] = useState(null)
   const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState(true)
@@ -17,48 +19,59 @@ export default function Dashboard() {
 
   async function loadData() {
     setLoading(true)
-    
+
     if (isSupabaseConfigured()) {
       try {
-        // Try to load from Supabase
-        const { data: vehiclesData, error } = await supabase
+        const { data: vehiclesData, error: vehiclesError } = await supabase
           .from('vehicles')
           .select('*')
           .order('vehicle_name')
-        
-        if (error) throw error
-        
+
+        if (vehiclesError) throw vehiclesError
+
+        const { data: messagesData, error: messagesError } = await supabase
+          .from('driver_messages')
+          .select('*')
+          .order('sent_at', { ascending: false })
+
+        if (messagesError) {
+          console.error('Error loading driver messages from Supabase:', messagesError)
+          setDriverMessages([])
+        } else {
+          setDriverMessages(messagesData || [])
+        }
+
         setVehicles(vehiclesData)
-        calculateStats(vehiclesData)
+        calculateStats(vehiclesData, messagesData || [])
         setIsDemoMode(false)
       } catch (error) {
         console.error('Error loading from Supabase:', error)
-        // Fall back to demo mode
         useDemoData()
       }
     } else {
-      // Use demo data if Supabase not configured
       useDemoData()
     }
-    
+
     setLoading(false)
   }
 
   function useDemoData() {
     setVehicles(demoVehicles)
-    setStats(demoStats)
+    setDriverMessages(demoDriverMessages)
+    calculateStats(demoVehicles, demoDriverMessages)
     setIsDemoMode(true)
   }
 
-  function calculateStats(vehicleData) {
+  function calculateStats(vehicleData, messageData = []) {
     const total = vehicleData.length
     const active = vehicleData.filter(v => v.status === 'active').length
     const idle = vehicleData.filter(v => v.status === 'idle').length
     const maintenance = vehicleData.filter(v => v.status === 'maintenance').length
     const maintenanceAlerts = vehicleData.filter(v => v.maintenance_due).length
-    const avgFuel = Math.round(
-      vehicleData.reduce((sum, v) => sum + v.fuel_level, 0) / total
-    )
+    const unacknowledgedMessages = messageData.filter(m => !m.acknowledged_at).length
+    const avgFuel = total
+      ? Math.round(vehicleData.reduce((sum, v) => sum + v.fuel_level, 0) / total)
+      : 0
 
     setStats({
       total_vehicles: total,
@@ -67,7 +80,36 @@ export default function Dashboard() {
       maintenance_vehicles: maintenance,
       average_fuel_level: avgFuel,
       maintenance_alerts: maintenanceAlerts,
+      unacknowledged_messages: unacknowledgedMessages,
     })
+  }
+
+  async function handleSendMessage(messagePayload) {
+    const newMessage = {
+      id: Date.now(),
+      ...messagePayload,
+      sent_at: new Date().toISOString(),
+      acknowledged_at: null,
+    }
+
+    setDriverMessages(prev => {
+      const nextMessages = [newMessage, ...prev]
+      calculateStats(vehicles, nextMessages)
+      return nextMessages
+    })
+
+    if (isSupabaseConfigured() && !isDemoMode) {
+      const { error } = await supabase.from('driver_messages').insert({
+        driver_name: messagePayload.driver_name,
+        vehicle_id: messagePayload.vehicle_id,
+        priority: messagePayload.priority,
+        text: messagePayload.text,
+      })
+
+      if (error) {
+        console.error('Error writing driver message:', error)
+      }
+    }
   }
 
   const filteredVehicles = vehicles.filter(vehicle => {
@@ -75,6 +117,21 @@ export default function Dashboard() {
     if (filter === 'alerts') return vehicle.maintenance_due || vehicle.fuel_level < 30
     return vehicle.status === filter
   })
+
+  const activeDrivers = vehicles
+    .filter(vehicle => vehicle.status === 'active' && vehicle.driver_name)
+    .map(vehicle => ({
+      vehicle_id: vehicle.id,
+      vehicle_name: vehicle.vehicle_name,
+      driver_name: vehicle.driver_name,
+    }))
+
+  const pendingAcksByVehicle = driverMessages.reduce((acc, message) => {
+    if (!message.acknowledged_at) {
+      acc[message.vehicle_id] = (acc[message.vehicle_id] || 0) + 1
+    }
+    return acc
+  }, {})
 
   const StatCard = ({ icon: Icon, label, value, color, trend }) => (
     <div
@@ -89,9 +146,7 @@ export default function Dashboard() {
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
         <Icon size={24} style={{ color }} />
-        {trend && (
-          <TrendingUp size={16} style={{ color: 'var(--color-success)' }} />
-        )}
+        {trend && <TrendingUp size={16} style={{ color: 'var(--color-success)' }} />}
       </div>
       <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--color-text)', marginBottom: '4px', fontFamily: 'var(--font-display)' }}>
         {value}
@@ -118,18 +173,6 @@ export default function Dashboard() {
         letterSpacing: '0.03em',
         textTransform: 'uppercase',
       }}
-      onMouseEnter={(e) => {
-        if (filter !== value) {
-          e.currentTarget.style.background = 'var(--color-surface-hover)'
-          e.currentTarget.style.borderColor = 'var(--color-accent)'
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (filter !== value) {
-          e.currentTarget.style.background = 'var(--color-surface)'
-          e.currentTarget.style.borderColor = 'var(--color-border)'
-        }
-      }}
     >
       {label} {count !== undefined && `(${count})`}
     </button>
@@ -146,31 +189,29 @@ export default function Dashboard() {
   return (
     <div style={{ minHeight: '100vh', padding: '40px 20px' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        {/* Header */}
         <div style={{ marginBottom: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
             <Truck size={32} style={{ color: 'var(--color-accent)' }} />
             <h1 style={{ fontSize: '48px', color: 'var(--color-text)' }}>Fleet Portal</h1>
           </div>
-          <p style={{ fontSize: '16px', color: 'var(--color-text-dim)' }}>
-            Real-time vehicle tracking and management
-          </p>
+          <p style={{ fontSize: '16px', color: 'var(--color-text-dim)' }}>Real-time vehicle tracking and management</p>
           {isDemoMode && (
-            <div style={{ 
-              marginTop: '16px',
-              padding: '12px 16px', 
-              background: 'rgba(251, 191, 36, 0.1)', 
-              border: '1px solid rgba(251, 191, 36, 0.3)',
-              borderRadius: '8px',
-              fontSize: '13px',
-              color: 'var(--color-warning)'
-            }}>
+            <div
+              style={{
+                marginTop: '16px',
+                padding: '12px 16px',
+                background: 'rgba(251, 191, 36, 0.1)',
+                border: '1px solid rgba(251, 191, 36, 0.3)',
+                borderRadius: '8px',
+                fontSize: '13px',
+                color: 'var(--color-warning)',
+              }}
+            >
               <strong>Demo Mode:</strong> Configure Supabase credentials to connect live data
             </div>
           )}
         </div>
 
-        {/* Stats Grid */}
         {stats && (
           <div
             style={{
@@ -180,34 +221,19 @@ export default function Dashboard() {
               marginBottom: '40px',
             }}
           >
+            <StatCard icon={Truck} label="Total Vehicles" value={stats.total_vehicles} color="var(--color-accent)" />
+            <StatCard icon={Activity} label="Active Now" value={stats.active_vehicles} color="var(--color-success)" />
+            <StatCard icon={AlertCircle} label="Alerts" value={stats.maintenance_alerts} color="var(--color-warning)" />
+            <StatCard icon={Wrench} label="In Maintenance" value={stats.maintenance_vehicles} color="var(--color-danger)" />
             <StatCard
-              icon={Truck}
-              label="Total Vehicles"
-              value={stats.total_vehicles}
-              color="var(--color-accent)"
-            />
-            <StatCard
-              icon={Activity}
-              label="Active Now"
-              value={stats.active_vehicles}
-              color="var(--color-success)"
-            />
-            <StatCard
-              icon={AlertCircle}
-              label="Alerts"
-              value={stats.maintenance_alerts}
+              icon={BellRing}
+              label="Unacknowledged"
+              value={stats.unacknowledged_messages}
               color="var(--color-warning)"
-            />
-            <StatCard
-              icon={Wrench}
-              label="In Maintenance"
-              value={stats.maintenance_vehicles}
-              color="var(--color-danger)"
             />
           </div>
         )}
 
-        {/* Filters */}
         <div style={{ display: 'flex', gap: '12px', marginBottom: '30px', flexWrap: 'wrap' }}>
           <FilterButton value="all" label="All Vehicles" count={vehicles.length} />
           <FilterButton value="active" label="Active" count={stats?.active_vehicles} />
@@ -216,7 +242,14 @@ export default function Dashboard() {
           <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
         </div>
 
-        {/* Vehicles Grid */}
+        <div style={{ marginBottom: '30px' }}>
+          <DriverCommsPanel
+            activeDrivers={activeDrivers}
+            messages={driverMessages}
+            onSendMessage={handleSendMessage}
+          />
+        </div>
+
         <div
           style={{
             display: 'grid',
@@ -225,13 +258,8 @@ export default function Dashboard() {
           }}
         >
           {filteredVehicles.map((vehicle, index) => (
-            <div
-              key={vehicle.id}
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
-            >
-              <VehicleCard vehicle={vehicle} />
+            <div key={vehicle.id} style={{ animationDelay: `${index * 0.1}s` }}>
+              <VehicleCard vehicle={vehicle} pendingAcknowledgements={pendingAcksByVehicle[vehicle.id] || 0} />
             </div>
           ))}
         </div>

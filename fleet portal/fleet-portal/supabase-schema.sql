@@ -60,3 +60,35 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_vehicles_updated_at BEFORE UPDATE ON vehicles
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Create driver messages table
+CREATE TABLE IF NOT EXISTS driver_messages (
+  id BIGSERIAL PRIMARY KEY,
+  driver_name TEXT NOT NULL,
+  vehicle_id BIGINT NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
+  priority TEXT NOT NULL CHECK (priority IN ('critical', 'warning', 'info')),
+  text TEXT NOT NULL,
+  sent_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  acknowledged_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_driver_messages_vehicle_id ON driver_messages(vehicle_id);
+CREATE INDEX IF NOT EXISTS idx_driver_messages_acknowledged_at ON driver_messages(acknowledged_at);
+
+ALTER TABLE driver_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow client read driver messages" ON driver_messages
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow authenticated insert driver messages" ON driver_messages
+  FOR INSERT
+  WITH CHECK (auth.role() = 'authenticated');
+
+-- Optional seed messages
+INSERT INTO driver_messages (driver_name, vehicle_id, priority, text, sent_at, acknowledged_at) VALUES
+('Michael Chen', 1, 'critical', 'Immediate reroute required due to road closure on 7th Avenue.', NOW() - INTERVAL '40 minutes', NULL),
+('Sarah Rodriguez', 2, 'warning', 'Fuel stop recommended before next pickup window.', NOW() - INTERVAL '75 minutes', NOW() - INTERVAL '55 minutes'),
+('James Wilson', 5, 'info', 'Customer loading dock is available 10 minutes early.', NOW() - INTERVAL '20 minutes', NULL)
+ON CONFLICT DO NOTHING;
