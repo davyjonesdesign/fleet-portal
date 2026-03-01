@@ -92,3 +92,56 @@ INSERT INTO driver_messages (driver_name, vehicle_id, priority, text, sent_at, a
 ('Sarah Rodriguez', 2, 'warning', 'Fuel stop recommended before next pickup window.', NOW() - INTERVAL '75 minutes', NOW() - INTERVAL '55 minutes'),
 ('James Wilson', 5, 'info', 'Customer loading dock is available 10 minutes early.', NOW() - INTERVAL '20 minutes', NULL)
 ON CONFLICT DO NOTHING;
+-- Compliance documents table
+CREATE TABLE IF NOT EXISTS compliance_documents (
+  id BIGSERIAL PRIMARY KEY,
+  doc_type TEXT NOT NULL CHECK (doc_type IN ('inspection', 'insurance', 'registration', 'maintenance log', 'driver hours summary')),
+  vehicle_id BIGINT NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
+  status TEXT NOT NULL CHECK (status IN ('submitted', 'approved', 'pending', 'rejected', 'missing')),
+  due_date TIMESTAMPTZ,
+  last_submitted_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_compliance_documents_vehicle_id ON compliance_documents(vehicle_id);
+CREATE INDEX IF NOT EXISTS idx_compliance_documents_due_date ON compliance_documents(due_date);
+
+ALTER TABLE compliance_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read access on compliance_documents" ON compliance_documents
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow authenticated insert on compliance_documents" ON compliance_documents
+  FOR INSERT
+  WITH CHECK (auth.role() = 'authenticated');
+
+CREATE POLICY "Allow authenticated update on compliance_documents" ON compliance_documents
+  FOR UPDATE
+  USING (auth.role() = 'authenticated');
+
+CREATE TRIGGER update_compliance_documents_updated_at BEFORE UPDATE ON compliance_documents
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Generated report runs table
+CREATE TABLE IF NOT EXISTS report_runs (
+  id BIGSERIAL PRIMARY KEY,
+  report_name TEXT NOT NULL,
+  generated_at TIMESTAMPTZ DEFAULT NOW(),
+  generated_by UUID,
+  download_url TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_report_runs_generated_at ON report_runs(generated_at DESC);
+
+ALTER TABLE report_runs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow public read access on report_runs" ON report_runs
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Allow authenticated insert on report_runs" ON report_runs
+  FOR INSERT
+  WITH CHECK (auth.role() = 'authenticated');
