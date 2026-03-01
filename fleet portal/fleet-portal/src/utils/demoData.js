@@ -88,6 +88,34 @@ export const demoStats = {
   maintenance_alerts: 2,
 }
 
+
+export const demoDriverMessages = [
+  {
+    id: 1,
+    driver_name: 'Michael Chen',
+    vehicle_id: 1,
+    priority: 'critical',
+    text: 'Immediate reroute required due to road closure on 7th Avenue.',
+    sent_at: new Date(Date.now() - 40 * 60000).toISOString(),
+    acknowledged_at: null,
+  },
+  {
+    id: 2,
+    driver_name: 'Sarah Rodriguez',
+    vehicle_id: 2,
+    priority: 'warning',
+    text: 'Fuel stop recommended before next pickup window.',
+    sent_at: new Date(Date.now() - 75 * 60000).toISOString(),
+    acknowledged_at: new Date(Date.now() - 55 * 60000).toISOString(),
+  },
+  {
+    id: 3,
+    driver_name: 'James Wilson',
+    vehicle_id: 5,
+    priority: 'info',
+    text: 'Customer loading dock is available 10 minutes early.',
+    sent_at: new Date(Date.now() - 20 * 60000).toISOString(),
+    acknowledged_at: null,
 export const demoComplianceRecords = [
   {
     id: 1,
