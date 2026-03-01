@@ -7,6 +7,8 @@ import ReportingHub from './portal/ReportingHub'
 import BookingBoard from './scheduling/BookingBoard'
 import BookingForm from './scheduling/BookingForm'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
+import { demoVehicles, demoStats, demoDepot, demoStops } from '../utils/demoData'
+import RouteOptimizerPanel from './routing/RouteOptimizerPanel'
 import {
   demoVehicles,
   demoStats,
@@ -585,6 +587,9 @@ export default function Dashboard() {
           <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
         </div>
 
+        <RouteOptimizerPanel vehicles={vehicles} depot={demoDepot} defaultStops={demoStops} />
+
+        {/* Vehicles Grid */}
         <div style={{ marginBottom: '30px' }}>
           <DriverCommsPanel
             activeDrivers={activeDrivers}

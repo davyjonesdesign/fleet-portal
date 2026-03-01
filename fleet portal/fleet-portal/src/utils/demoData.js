@@ -141,6 +141,19 @@ export const demoStats = {
   maintenance_alerts: 2,
 }
 
+export const demoDepot = {
+  id: 'depot-main',
+  name: 'Main Depot',
+  lat: 37.7749,
+  lng: -122.4194,
+}
+
+export const demoStops = [
+  { id: 'stop-1', name: 'Market Street Hub', lat: 37.7897, lng: -122.4011 },
+  { id: 'stop-2', name: 'Mission District Drop', lat: 37.7599, lng: -122.4148 },
+  { id: 'stop-3', name: 'Embarcadero Pickup', lat: 37.7955, lng: -122.3937 },
+  { id: 'stop-4', name: 'Sunset Residential', lat: 37.7534, lng: -122.4944 },
+  { id: 'stop-5', name: 'Presidio Supply Point', lat: 37.7989, lng: -122.4662 },
 export const demoDeliveryMilestones = [
   {
     id: 'ms-1001',
