@@ -150,7 +150,7 @@ export default function Dashboard() {
         <div style={{ marginBottom: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
             <Truck size={32} style={{ color: 'var(--color-accent)' }} />
-            <h1 style={{ fontSize: '48px', color: 'var(--color-text)' }}>Fleet Portal</h1>
+            <h1 className="dashboard-title">Fleet Portal</h1>
           </div>
           <p style={{ fontSize: '16px', color: 'var(--color-text-dim)' }}>
             Real-time vehicle tracking and management
