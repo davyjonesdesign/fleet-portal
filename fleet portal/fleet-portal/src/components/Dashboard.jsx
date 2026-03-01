@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Truck, Activity, Wrench, AlertCircle, TrendingUp } from 'lucide-react'
+import { Truck, Activity, Wrench, AlertCircle, TrendingUp, ShieldAlert, Clock3, ShieldCheck, FileText } from 'lucide-react'
 import VehicleCard from './VehicleCard'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
-import { demoVehicles, demoStats } from '../utils/demoData'
+import CompliancePanel from './compliance/CompliancePanel'
+import { computeComplianceSummary } from '../utils/compliance'
+import { demoVehicles, demoStats, demoComplianceRecords, demoGeneratedReports } from '../utils/demoData'
 
 export default function Dashboard() {
   const [vehicles, setVehicles] = useState([])
@@ -10,6 +12,8 @@ export default function Dashboard() {
   const [filter, setFilter] = useState('all')
   const [loading, setLoading] = useState(true)
   const [isDemoMode, setIsDemoMode] = useState(false)
+  const [complianceRecords, setComplianceRecords] = useState([])
+  const [generatedReports, setGeneratedReports] = useState([])
 
   useEffect(() => {
     loadData()
@@ -47,6 +51,8 @@ export default function Dashboard() {
   function useDemoData() {
     setVehicles(demoVehicles)
     setStats(demoStats)
+    setComplianceRecords(demoComplianceRecords)
+    setGeneratedReports(demoGeneratedReports)
     setIsDemoMode(true)
   }
 
@@ -75,6 +81,8 @@ export default function Dashboard() {
     if (filter === 'alerts') return vehicle.maintenance_due || vehicle.fuel_level < 30
     return vehicle.status === filter
   })
+
+  const complianceSummary = computeComplianceSummary(complianceRecords)
 
   const StatCard = ({ icon: Icon, label, value, color, trend }) => (
     <div
@@ -204,6 +212,30 @@ export default function Dashboard() {
               value={stats.maintenance_vehicles}
               color="var(--color-danger)"
             />
+            <StatCard
+              icon={ShieldAlert}
+              label="Compliance Overdue"
+              value={complianceSummary.critical}
+              color="var(--color-danger)"
+            />
+            <StatCard
+              icon={Clock3}
+              label="Compliance Due Soon"
+              value={complianceSummary.warning}
+              color="var(--color-warning)"
+            />
+            <StatCard
+              icon={ShieldCheck}
+              label="Compliance Clear"
+              value={complianceSummary.clear}
+              color="var(--color-success)"
+            />
+            <StatCard
+              icon={FileText}
+              label="Missing Metadata"
+              value={complianceSummary.info}
+              color="var(--color-text-dim)"
+            />
           </div>
         )}
 
@@ -242,6 +274,8 @@ export default function Dashboard() {
             <p style={{ fontSize: '16px' }}>No vehicles found matching your filter</p>
           </div>
         )}
+
+        <CompliancePanel records={complianceRecords} reports={generatedReports} vehicles={vehicles} />
       </div>
     </div>
   )
