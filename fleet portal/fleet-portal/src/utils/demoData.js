@@ -164,6 +164,8 @@ export const demoStops = [
   { id: 'stop-3', name: 'Embarcadero Pickup', lat: 37.7955, lng: -122.3937 },
   { id: 'stop-4', name: 'Sunset Residential', lat: 37.7534, lng: -122.4944 },
   { id: 'stop-5', name: 'Presidio Supply Point', lat: 37.7989, lng: -122.4662 },
+]
+
 export const demoDeliveryMilestones = [
   {
     id: 'ms-1001',
@@ -224,6 +226,9 @@ export const demoReports = [
     report_type: 'Fuel Efficiency',
     generated_at: new Date(Date.now() - 70 * 60 * 60000).toISOString(),
     period: 'Q1 2026',
+  },
+]
+
 function doTimeRangesOverlap(startA, endA, startB, endB) {
   return startA < endB && endA > startB
 }
@@ -276,6 +281,9 @@ export const demoDriverMessages = [
     text: 'Customer loading dock is available 10 minutes early.',
     sent_at: new Date(Date.now() - 20 * 60000).toISOString(),
     acknowledged_at: null,
+  },
+]
+
 export const demoComplianceRecords = [
   {
     id: 1,

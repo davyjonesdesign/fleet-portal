@@ -1,5 +1,5 @@
 import React from 'react'
-import { MapPin, Clock3, CircleAlert } from 'lucide-react'
+import { MapPin, Clock3, AlertCircle } from 'lucide-react'
 
 function EmptyState({ title, description }) {
   return (

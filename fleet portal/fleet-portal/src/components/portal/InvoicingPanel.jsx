@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircleAlert } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 
 function EmptyState({ title, description }) {
   return (
