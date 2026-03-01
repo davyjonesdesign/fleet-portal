@@ -2,10 +2,35 @@ import React from 'react'
 import { MapPin, Fuel, Gauge, User, Clock } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import StatusBadge from './StatusBadge'
+import { calculateMaintenanceRisk } from '../utils/maintenancePrediction'
 
+const riskBadgeConfig = {
+  critical: {
+    text: 'Predicted Service Risk: Critical',
+    color: 'var(--color-danger)',
+    background: 'rgba(239, 68, 68, 0.14)',
+    border: 'rgba(239, 68, 68, 0.45)',
+  },
+  warning: {
+    text: 'Predicted Service Risk: Warning',
+    color: 'var(--color-warning)',
+    background: 'rgba(251, 191, 36, 0.16)',
+    border: 'rgba(251, 191, 36, 0.45)',
+  },
+  clear: {
+    text: 'Predicted Service Risk: Clear',
+    color: 'var(--color-success)',
+    background: 'rgba(16, 185, 129, 0.12)',
+    border: 'rgba(16, 185, 129, 0.4)',
+  },
+}
+
+export default function VehicleCard({ vehicle, risk }) {
 export default function VehicleCard({ vehicle, pendingAcknowledgements = 0 }) {
   const lastUpdateTime = formatDistanceToNow(new Date(vehicle.last_update), { addSuffix: true })
-  
+  const maintenanceRisk = risk || calculateMaintenanceRisk(vehicle)
+  const riskBadge = riskBadgeConfig[maintenanceRisk.status] || riskBadgeConfig.clear
+
   return (
     <div
       style={{
@@ -82,6 +107,27 @@ export default function VehicleCard({ vehicle, pendingAcknowledgements = 0 }) {
           </p>
         </div>
         <StatusBadge status={vehicle.status} />
+      </div>
+
+      <div
+        style={{
+          marginBottom: '16px',
+          fontSize: '12px',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.04em',
+          color: riskBadge.color,
+          background: riskBadge.background,
+          border: `1px solid ${riskBadge.border}`,
+          borderRadius: '999px',
+          padding: '6px 10px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        <span>{riskBadge.text}</span>
+        <span style={{ opacity: 0.85 }}>({maintenanceRisk.score})</span>
       </div>
 
       <div style={{ display: 'grid', gap: '12px' }}>

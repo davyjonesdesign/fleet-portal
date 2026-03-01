@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Truck, Activity, Wrench, AlertCircle, AlertTriangle, TrendingUp } from 'lucide-react'
 import { Truck, Activity, Wrench, AlertCircle, TrendingUp, CalendarDays } from 'lucide-react'
 import VehicleCard from './VehicleCard'
 import ClientTrackingPanel from './portal/ClientTrackingPanel'
@@ -7,6 +8,8 @@ import ReportingHub from './portal/ReportingHub'
 import BookingBoard from './scheduling/BookingBoard'
 import BookingForm from './scheduling/BookingForm'
 import { supabase, isSupabaseConfigured } from '../supabaseClient'
+import { demoVehicles } from '../utils/demoData'
+import { calculateMaintenanceRisk } from '../utils/maintenancePrediction'
 import { demoVehicles, demoStats, demoDepot, demoStops } from '../utils/demoData'
 import RouteOptimizerPanel from './routing/RouteOptimizerPanel'
 import {
@@ -123,6 +126,7 @@ export default function Dashboard() {
 
   function useDemoOperationsData() {
     setVehicles(demoVehicles)
+    calculateStats(demoVehicles)
     setDriverMessages(demoDriverMessages)
     calculateStats(demoVehicles, demoDriverMessages)
     setStats(demoStats)
@@ -205,6 +209,14 @@ export default function Dashboard() {
     const active = vehicleData.filter(v => v.status === 'active').length
     const idle = vehicleData.filter(v => v.status === 'idle').length
     const maintenance = vehicleData.filter(v => v.status === 'maintenance').length
+    const predictedAtRisk = vehicleData.filter(v => {
+      const risk = calculateMaintenanceRisk(v)
+      return risk.status !== 'clear'
+    }).length
+    const mergedAlerts = vehicleData.filter(v => {
+      const risk = calculateMaintenanceRisk(v)
+      return v.maintenance_due || v.fuel_level < 30 || risk.status !== 'clear'
+    }).length
     const maintenanceAlerts = vehicleData.filter(v => v.maintenance_due).length
     const unacknowledgedMessages = messageData.filter(m => !m.acknowledged_at).length
     const avgFuel = total
@@ -217,6 +229,17 @@ export default function Dashboard() {
       idle_vehicles: idle,
       maintenance_vehicles: maintenance,
       average_fuel_level: avgFuel,
+      predicted_at_risk: predictedAtRisk,
+      maintenance_alerts: mergedAlerts,
+    })
+  }
+
+  const vehiclesWithRisk = vehicles.map(vehicle => ({
+    ...vehicle,
+    predictedServiceRisk: calculateMaintenanceRisk(vehicle),
+  }))
+
+  const filteredVehicles = vehiclesWithRisk.filter(vehicle => {
       maintenance_alerts: maintenanceAlerts,
       unacknowledged_messages: unacknowledgedMessages,
     })
@@ -268,7 +291,10 @@ export default function Dashboard() {
 
   const filteredVehicles = vehicles.filter(vehicle => {
     if (filter === 'all') return true
-    if (filter === 'alerts') return vehicle.maintenance_due || vehicle.fuel_level < 30
+    if (filter === 'predicted-risk') return vehicle.predictedServiceRisk.status !== 'clear'
+    if (filter === 'alerts') {
+      return vehicle.maintenance_due || vehicle.fuel_level < 30 || vehicle.predictedServiceRisk.status !== 'clear'
+    }
     return vehicle.status === filter
   })
 
@@ -547,6 +573,12 @@ export default function Dashboard() {
               color="var(--color-warning)"
             />
             <StatCard
+              icon={AlertTriangle}
+              label="Predicted At Risk"
+              value={stats.predicted_at_risk}
+              color="var(--color-warning)"
+            />
+            <StatCard
               icon={Wrench}
               label="In Maintenance"
               value={stats.maintenance_vehicles}
@@ -584,6 +616,7 @@ export default function Dashboard() {
           <FilterButton value="active" label="Active" count={stats?.active_vehicles} />
           <FilterButton value="idle" label="Idle" count={stats?.idle_vehicles} />
           <FilterButton value="maintenance" label="Maintenance" count={stats?.maintenance_vehicles} />
+          <FilterButton value="predicted-risk" label="Predicted Risk" count={stats?.predicted_at_risk} />
           <FilterButton value="alerts" label="Alerts" count={stats?.maintenance_alerts} />
         </div>
 
@@ -606,6 +639,13 @@ export default function Dashboard() {
           }}
         >
           {filteredVehicles.map((vehicle, index) => (
+            <div
+              key={vehicle.id}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
+              <VehicleCard vehicle={vehicle} risk={vehicle.predictedServiceRisk} />
             <div key={vehicle.id} style={{ animationDelay: `${index * 0.1}s` }}>
               <VehicleCard vehicle={vehicle} pendingAcknowledgements={pendingAcksByVehicle[vehicle.id] || 0} />
             </div>
